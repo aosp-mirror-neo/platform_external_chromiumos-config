@@ -27397,6 +27397,15 @@
               "oneofIndex": 0,
               "type": "TYPE_MESSAGE",
               "typeName": ".chromiumos.test.api.TestHarness.DTC"
+            },
+            {
+              "jsonName": "webTests",
+              "label": "LABEL_OPTIONAL",
+              "name": "web_tests",
+              "number": 9,
+              "oneofIndex": 0,
+              "type": "TYPE_MESSAGE",
+              "typeName": ".chromiumos.test.api.TestHarness.WebTests"
             }
           ],
           "name": "TestHarness",
@@ -27433,6 +27442,9 @@
             },
             {
               "name": "DTC"
+            },
+            {
+              "name": "WebTests"
             }
           ],
           "oneofDecl": [

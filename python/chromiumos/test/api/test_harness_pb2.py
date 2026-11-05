@@ -19,7 +19,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=b'Z-go.chromium.org/chromiumos/config/go/test/api',
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n&chromiumos/test/api/test_harness.proto\x12\x13\x63hromiumos.test.api\"\xd8\x04\n\x0bTestHarness\x12\x39\n\x06manual\x18\x01 \x01(\x0b\x32\'.chromiumos.test.api.TestHarness.ManualH\x00\x12\x37\n\x05tauto\x18\x02 \x01(\x0b\x32&.chromiumos.test.api.TestHarness.TautoH\x00\x12\x35\n\x04tast\x18\x03 \x01(\x0b\x32%.chromiumos.test.api.TestHarness.TastH\x00\x12\x37\n\x05gtest\x18\x04 \x01(\x0b\x32&.chromiumos.test.api.TestHarness.GtestH\x00\x12\x37\n\x05mobly\x18\x05 \x01(\x0b\x32&.chromiumos.test.api.TestHarness.MoblyH\x00\x12;\n\x07\x63rosier\x18\x06 \x01(\x0b\x32(.chromiumos.test.api.TestHarness.CrosierH\x00\x12=\n\x08tradefed\x18\x07 \x01(\x0b\x32).chromiumos.test.api.TestHarness.TradefedH\x00\x12\x33\n\x03\x64tc\x18\x08 \x01(\x0b\x32$.chromiumos.test.api.TestHarness.DTCH\x00\x1a\x08\n\x06Manual\x1a\x06\n\x04Tast\x1a\x07\n\x05Tauto\x1a$\n\x05Gtest\x12\x1b\n\x13target_bin_location\x18\x01 \x01(\t\x1a\x07\n\x05Mobly\x1a\t\n\x07\x43rosier\x1a\n\n\x08Tradefed\x1a\x05\n\x03\x44TCB\x13\n\x11test_harness_typeB/Z-go.chromium.org/chromiumos/config/go/test/apib\x06proto3'
+  serialized_pb=b'\n&chromiumos/test/api/test_harness.proto\x12\x13\x63hromiumos.test.api\"\xa4\x05\n\x0bTestHarness\x12\x39\n\x06manual\x18\x01 \x01(\x0b\x32\'.chromiumos.test.api.TestHarness.ManualH\x00\x12\x37\n\x05tauto\x18\x02 \x01(\x0b\x32&.chromiumos.test.api.TestHarness.TautoH\x00\x12\x35\n\x04tast\x18\x03 \x01(\x0b\x32%.chromiumos.test.api.TestHarness.TastH\x00\x12\x37\n\x05gtest\x18\x04 \x01(\x0b\x32&.chromiumos.test.api.TestHarness.GtestH\x00\x12\x37\n\x05mobly\x18\x05 \x01(\x0b\x32&.chromiumos.test.api.TestHarness.MoblyH\x00\x12;\n\x07\x63rosier\x18\x06 \x01(\x0b\x32(.chromiumos.test.api.TestHarness.CrosierH\x00\x12=\n\x08tradefed\x18\x07 \x01(\x0b\x32).chromiumos.test.api.TestHarness.TradefedH\x00\x12\x33\n\x03\x64tc\x18\x08 \x01(\x0b\x32$.chromiumos.test.api.TestHarness.DTCH\x00\x12>\n\tweb_tests\x18\t \x01(\x0b\x32).chromiumos.test.api.TestHarness.WebTestsH\x00\x1a\x08\n\x06Manual\x1a\x06\n\x04Tast\x1a\x07\n\x05Tauto\x1a$\n\x05Gtest\x12\x1b\n\x13target_bin_location\x18\x01 \x01(\t\x1a\x07\n\x05Mobly\x1a\t\n\x07\x43rosier\x1a\n\n\x08Tradefed\x1a\x05\n\x03\x44TC\x1a\n\n\x08WebTestsB\x13\n\x11test_harness_typeB/Z-go.chromium.org/chromiumos/config/go/test/apib\x06proto3'
 )
 
 
@@ -45,8 +45,8 @@ _TESTHARNESS_MANUAL = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=541,
-  serialized_end=549,
+  serialized_start=605,
+  serialized_end=613,
 )
 
 _TESTHARNESS_TAST = _descriptor.Descriptor(
@@ -69,8 +69,8 @@ _TESTHARNESS_TAST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=551,
-  serialized_end=557,
+  serialized_start=615,
+  serialized_end=621,
 )
 
 _TESTHARNESS_TAUTO = _descriptor.Descriptor(
@@ -93,8 +93,8 @@ _TESTHARNESS_TAUTO = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=559,
-  serialized_end=566,
+  serialized_start=623,
+  serialized_end=630,
 )
 
 _TESTHARNESS_GTEST = _descriptor.Descriptor(
@@ -124,8 +124,8 @@ _TESTHARNESS_GTEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=568,
-  serialized_end=604,
+  serialized_start=632,
+  serialized_end=668,
 )
 
 _TESTHARNESS_MOBLY = _descriptor.Descriptor(
@@ -148,8 +148,8 @@ _TESTHARNESS_MOBLY = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=606,
-  serialized_end=613,
+  serialized_start=670,
+  serialized_end=677,
 )
 
 _TESTHARNESS_CROSIER = _descriptor.Descriptor(
@@ -172,8 +172,8 @@ _TESTHARNESS_CROSIER = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=615,
-  serialized_end=624,
+  serialized_start=679,
+  serialized_end=688,
 )
 
 _TESTHARNESS_TRADEFED = _descriptor.Descriptor(
@@ -196,8 +196,8 @@ _TESTHARNESS_TRADEFED = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=626,
-  serialized_end=636,
+  serialized_start=690,
+  serialized_end=700,
 )
 
 _TESTHARNESS_DTC = _descriptor.Descriptor(
@@ -220,8 +220,32 @@ _TESTHARNESS_DTC = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=638,
-  serialized_end=643,
+  serialized_start=702,
+  serialized_end=707,
+)
+
+_TESTHARNESS_WEBTESTS = _descriptor.Descriptor(
+  name='WebTests',
+  full_name='chromiumos.test.api.TestHarness.WebTests',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=709,
+  serialized_end=719,
 )
 
 _TESTHARNESS = _descriptor.Descriptor(
@@ -288,10 +312,17 @@ _TESTHARNESS = _descriptor.Descriptor(
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='web_tests', full_name='chromiumos.test.api.TestHarness.web_tests', index=8,
+      number=9, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
   ],
   extensions=[
   ],
-  nested_types=[_TESTHARNESS_MANUAL, _TESTHARNESS_TAST, _TESTHARNESS_TAUTO, _TESTHARNESS_GTEST, _TESTHARNESS_MOBLY, _TESTHARNESS_CROSIER, _TESTHARNESS_TRADEFED, _TESTHARNESS_DTC, ],
+  nested_types=[_TESTHARNESS_MANUAL, _TESTHARNESS_TAST, _TESTHARNESS_TAUTO, _TESTHARNESS_GTEST, _TESTHARNESS_MOBLY, _TESTHARNESS_CROSIER, _TESTHARNESS_TRADEFED, _TESTHARNESS_DTC, _TESTHARNESS_WEBTESTS, ],
   enum_types=[
   ],
   serialized_options=None,
@@ -306,7 +337,7 @@ _TESTHARNESS = _descriptor.Descriptor(
     fields=[]),
   ],
   serialized_start=64,
-  serialized_end=664,
+  serialized_end=740,
 )
 
 _TESTHARNESS_MANUAL.containing_type = _TESTHARNESS
@@ -317,6 +348,7 @@ _TESTHARNESS_MOBLY.containing_type = _TESTHARNESS
 _TESTHARNESS_CROSIER.containing_type = _TESTHARNESS
 _TESTHARNESS_TRADEFED.containing_type = _TESTHARNESS
 _TESTHARNESS_DTC.containing_type = _TESTHARNESS
+_TESTHARNESS_WEBTESTS.containing_type = _TESTHARNESS
 _TESTHARNESS.fields_by_name['manual'].message_type = _TESTHARNESS_MANUAL
 _TESTHARNESS.fields_by_name['tauto'].message_type = _TESTHARNESS_TAUTO
 _TESTHARNESS.fields_by_name['tast'].message_type = _TESTHARNESS_TAST
@@ -325,6 +357,7 @@ _TESTHARNESS.fields_by_name['mobly'].message_type = _TESTHARNESS_MOBLY
 _TESTHARNESS.fields_by_name['crosier'].message_type = _TESTHARNESS_CROSIER
 _TESTHARNESS.fields_by_name['tradefed'].message_type = _TESTHARNESS_TRADEFED
 _TESTHARNESS.fields_by_name['dtc'].message_type = _TESTHARNESS_DTC
+_TESTHARNESS.fields_by_name['web_tests'].message_type = _TESTHARNESS_WEBTESTS
 _TESTHARNESS.oneofs_by_name['test_harness_type'].fields.append(
   _TESTHARNESS.fields_by_name['manual'])
 _TESTHARNESS.fields_by_name['manual'].containing_oneof = _TESTHARNESS.oneofs_by_name['test_harness_type']
@@ -349,6 +382,9 @@ _TESTHARNESS.fields_by_name['tradefed'].containing_oneof = _TESTHARNESS.oneofs_b
 _TESTHARNESS.oneofs_by_name['test_harness_type'].fields.append(
   _TESTHARNESS.fields_by_name['dtc'])
 _TESTHARNESS.fields_by_name['dtc'].containing_oneof = _TESTHARNESS.oneofs_by_name['test_harness_type']
+_TESTHARNESS.oneofs_by_name['test_harness_type'].fields.append(
+  _TESTHARNESS.fields_by_name['web_tests'])
+_TESTHARNESS.fields_by_name['web_tests'].containing_oneof = _TESTHARNESS.oneofs_by_name['test_harness_type']
 DESCRIPTOR.message_types_by_name['TestHarness'] = _TESTHARNESS
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
@@ -409,6 +445,13 @@ TestHarness = _reflection.GeneratedProtocolMessageType('TestHarness', (_message.
     # @@protoc_insertion_point(class_scope:chromiumos.test.api.TestHarness.DTC)
     })
   ,
+
+  'WebTests' : _reflection.GeneratedProtocolMessageType('WebTests', (_message.Message,), {
+    'DESCRIPTOR' : _TESTHARNESS_WEBTESTS,
+    '__module__' : 'chromiumos.test.api.test_harness_pb2'
+    # @@protoc_insertion_point(class_scope:chromiumos.test.api.TestHarness.WebTests)
+    })
+  ,
   'DESCRIPTOR' : _TESTHARNESS,
   '__module__' : 'chromiumos.test.api.test_harness_pb2'
   # @@protoc_insertion_point(class_scope:chromiumos.test.api.TestHarness)
@@ -422,6 +465,7 @@ _sym_db.RegisterMessage(TestHarness.Mobly)
 _sym_db.RegisterMessage(TestHarness.Crosier)
 _sym_db.RegisterMessage(TestHarness.Tradefed)
 _sym_db.RegisterMessage(TestHarness.DTC)
+_sym_db.RegisterMessage(TestHarness.WebTests)
 
 
 DESCRIPTOR._options = None

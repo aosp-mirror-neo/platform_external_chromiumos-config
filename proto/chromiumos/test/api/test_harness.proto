@@ -22,6 +22,10 @@ message TestHarness {
     Crosier crosier = 6;
     Tradefed tradefed = 7;
     DTC dtc = 8;
+    // Runner for chromium/web-tests Crossbench benchmarks and CUJs
+    // (https://chromium.googlesource.com/chromium/web-tests). Unrelated to
+    // Blink web_tests.
+    WebTests web_tests = 9;
   }
 
   message Manual {}
@@ -35,5 +39,6 @@ message TestHarness {
   message Crosier {}
   message Tradefed {}
   message DTC {}
+  message WebTests {}
 }
 // LINT.ThenChange(//chromium/infra/infra_superproject/main/infra/go/src/infra/tools/result_adapter/util.go)
