@@ -192,6 +192,11 @@ class BolsServiceStub(object):
                 request_serializer=chromiumos_dot_test_dot_api_dot_bols_dot_bols__service__pb2.FindDolosUARTRequest.SerializeToString,
                 response_deserializer=chromiumos_dot_test_dot_api_dot_bols_dot_bols__service__pb2.FindDolosUARTResponse.FromString,
                 )
+        self.GetBolsVersion = channel.unary_unary(
+                '/chromiumos.test.api.bols.BolsService/GetBolsVersion',
+                request_serializer=chromiumos_dot_test_dot_api_dot_bols_dot_bols__service__pb2.GetBolsVersionRequest.SerializeToString,
+                response_deserializer=chromiumos_dot_test_dot_api_dot_bols_dot_bols__service__pb2.GetBolsVersionResponse.FromString,
+                )
 
 
 class BolsServiceServicer(object):
@@ -478,6 +483,15 @@ class BolsServiceServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def GetBolsVersion(self, request, context):
+        """/////// BOLS API /////////
+
+        GetBolsVersion returns the running BOLS service version.
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
 
 def add_BolsServiceServicer_to_server(servicer, server):
     rpc_method_handlers = {
@@ -655,6 +669,11 @@ def add_BolsServiceServicer_to_server(servicer, server):
                     servicer.FindDolosUART,
                     request_deserializer=chromiumos_dot_test_dot_api_dot_bols_dot_bols__service__pb2.FindDolosUARTRequest.FromString,
                     response_serializer=chromiumos_dot_test_dot_api_dot_bols_dot_bols__service__pb2.FindDolosUARTResponse.SerializeToString,
+            ),
+            'GetBolsVersion': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetBolsVersion,
+                    request_deserializer=chromiumos_dot_test_dot_api_dot_bols_dot_bols__service__pb2.GetBolsVersionRequest.FromString,
+                    response_serializer=chromiumos_dot_test_dot_api_dot_bols_dot_bols__service__pb2.GetBolsVersionResponse.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -1261,5 +1280,22 @@ class BolsService(object):
         return grpc.experimental.unary_unary(request, target, '/chromiumos.test.api.bols.BolsService/FindDolosUART',
             chromiumos_dot_test_dot_api_dot_bols_dot_bols__service__pb2.FindDolosUARTRequest.SerializeToString,
             chromiumos_dot_test_dot_api_dot_bols_dot_bols__service__pb2.FindDolosUARTResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def GetBolsVersion(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/chromiumos.test.api.bols.BolsService/GetBolsVersion',
+            chromiumos_dot_test_dot_api_dot_bols_dot_bols__service__pb2.GetBolsVersionRequest.SerializeToString,
+            chromiumos_dot_test_dot_api_dot_bols_dot_bols__service__pb2.GetBolsVersionResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)

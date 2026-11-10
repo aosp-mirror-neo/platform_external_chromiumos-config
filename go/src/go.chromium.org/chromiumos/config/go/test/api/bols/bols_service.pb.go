@@ -5584,7 +5584,7 @@ var file_chromiumos_test_api_bols_bols_service_proto_rawDesc = []byte{
 	0x06, 0x12, 0x1a, 0x0a, 0x16, 0x44, 0x4f, 0x4c, 0x4f, 0x53, 0x5f, 0x4e, 0x4f, 0x5f, 0x43, 0x4f,
 	0x4d, 0x4d, 0x55, 0x4e, 0x49, 0x43, 0x41, 0x54, 0x49, 0x4f, 0x4e, 0x10, 0x07, 0x12, 0x15, 0x0a,
 	0x11, 0x44, 0x4f, 0x4c, 0x4f, 0x53, 0x5f, 0x4e, 0x4f, 0x54, 0x5f, 0x50, 0x52, 0x45, 0x53, 0x45,
-	0x4e, 0x54, 0x10, 0x08, 0x32, 0xf9, 0x1e, 0x0a, 0x0b, 0x42, 0x6f, 0x6c, 0x73, 0x53, 0x65, 0x72,
+	0x4e, 0x54, 0x10, 0x08, 0x32, 0xf0, 0x1f, 0x0a, 0x0b, 0x42, 0x6f, 0x6c, 0x73, 0x53, 0x65, 0x72,
 	0x76, 0x69, 0x63, 0x65, 0x12, 0x6c, 0x0a, 0x0b, 0x47, 0x65, 0x74, 0x46, 0x69, 0x6c, 0x65, 0x53,
 	0x74, 0x61, 0x74, 0x12, 0x2c, 0x2e, 0x63, 0x68, 0x72, 0x6f, 0x6d, 0x69, 0x75, 0x6d, 0x6f, 0x73,
 	0x2e, 0x74, 0x65, 0x73, 0x74, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x62, 0x6f, 0x6c, 0x73, 0x2e, 0x47,
@@ -5832,12 +5832,19 @@ var file_chromiumos_test_api_bols_bols_service_proto_rawDesc = []byte{
 	0x63, 0x68, 0x72, 0x6f, 0x6d, 0x69, 0x75, 0x6d, 0x6f, 0x73, 0x2e, 0x74, 0x65, 0x73, 0x74, 0x2e,
 	0x61, 0x70, 0x69, 0x2e, 0x62, 0x6f, 0x6c, 0x73, 0x2e, 0x46, 0x69, 0x6e, 0x64, 0x44, 0x6f, 0x6c,
 	0x6f, 0x73, 0x55, 0x41, 0x52, 0x54, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22, 0x00,
-	0x42, 0x4b, 0x42, 0x15, 0x42, 0x6f, 0x6c, 0x73, 0x53, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x4f,
-	0x75, 0x74, 0x65, 0x72, 0x43, 0x6c, 0x61, 0x73, 0x73, 0x5a, 0x32, 0x67, 0x6f, 0x2e, 0x63, 0x68,
-	0x72, 0x6f, 0x6d, 0x69, 0x75, 0x6d, 0x2e, 0x6f, 0x72, 0x67, 0x2f, 0x63, 0x68, 0x72, 0x6f, 0x6d,
-	0x69, 0x75, 0x6d, 0x6f, 0x73, 0x2f, 0x63, 0x6f, 0x6e, 0x66, 0x69, 0x67, 0x2f, 0x67, 0x6f, 0x2f,
-	0x74, 0x65, 0x73, 0x74, 0x2f, 0x61, 0x70, 0x69, 0x2f, 0x62, 0x6f, 0x6c, 0x73, 0x62, 0x06, 0x70,
-	0x72, 0x6f, 0x74, 0x6f, 0x33,
+	0x12, 0x75, 0x0a, 0x0e, 0x47, 0x65, 0x74, 0x42, 0x6f, 0x6c, 0x73, 0x56, 0x65, 0x72, 0x73, 0x69,
+	0x6f, 0x6e, 0x12, 0x2f, 0x2e, 0x63, 0x68, 0x72, 0x6f, 0x6d, 0x69, 0x75, 0x6d, 0x6f, 0x73, 0x2e,
+	0x74, 0x65, 0x73, 0x74, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x62, 0x6f, 0x6c, 0x73, 0x2e, 0x47, 0x65,
+	0x74, 0x42, 0x6f, 0x6c, 0x73, 0x56, 0x65, 0x72, 0x73, 0x69, 0x6f, 0x6e, 0x52, 0x65, 0x71, 0x75,
+	0x65, 0x73, 0x74, 0x1a, 0x30, 0x2e, 0x63, 0x68, 0x72, 0x6f, 0x6d, 0x69, 0x75, 0x6d, 0x6f, 0x73,
+	0x2e, 0x74, 0x65, 0x73, 0x74, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x62, 0x6f, 0x6c, 0x73, 0x2e, 0x47,
+	0x65, 0x74, 0x42, 0x6f, 0x6c, 0x73, 0x56, 0x65, 0x72, 0x73, 0x69, 0x6f, 0x6e, 0x52, 0x65, 0x73,
+	0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22, 0x00, 0x42, 0x4b, 0x42, 0x15, 0x42, 0x6f, 0x6c, 0x73, 0x53,
+	0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x4f, 0x75, 0x74, 0x65, 0x72, 0x43, 0x6c, 0x61, 0x73, 0x73,
+	0x5a, 0x32, 0x67, 0x6f, 0x2e, 0x63, 0x68, 0x72, 0x6f, 0x6d, 0x69, 0x75, 0x6d, 0x2e, 0x6f, 0x72,
+	0x67, 0x2f, 0x63, 0x68, 0x72, 0x6f, 0x6d, 0x69, 0x75, 0x6d, 0x6f, 0x73, 0x2f, 0x63, 0x6f, 0x6e,
+	0x66, 0x69, 0x67, 0x2f, 0x67, 0x6f, 0x2f, 0x74, 0x65, 0x73, 0x74, 0x2f, 0x61, 0x70, 0x69, 0x2f,
+	0x62, 0x6f, 0x6c, 0x73, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
 }
 
 var (
@@ -6046,43 +6053,45 @@ var file_chromiumos_test_api_bols_bols_service_proto_depIdxs = []int32{
 	79,  // 97: chromiumos.test.api.bols.BolsService.UpdateDolosVersion:input_type -> chromiumos.test.api.bols.UpdateDolosVersionRequest
 	81,  // 98: chromiumos.test.api.bols.BolsService.GetDolosStatus:input_type -> chromiumos.test.api.bols.GetDolosStatusRequest
 	83,  // 99: chromiumos.test.api.bols.BolsService.FindDolosUART:input_type -> chromiumos.test.api.bols.FindDolosUARTRequest
-	8,   // 100: chromiumos.test.api.bols.BolsService.GetFileStat:output_type -> chromiumos.test.api.bols.GetFileStatResponse
-	10,  // 101: chromiumos.test.api.bols.BolsService.GetFile:output_type -> chromiumos.test.api.bols.GetFileResponse
-	12,  // 102: chromiumos.test.api.bols.BolsService.PutFile:output_type -> chromiumos.test.api.bols.PutFileResponse
-	16,  // 103: chromiumos.test.api.bols.BolsService.DownloadFile:output_type -> chromiumos.test.api.bols.DownloadFileResponse
-	18,  // 104: chromiumos.test.api.bols.BolsService.RemoveFile:output_type -> chromiumos.test.api.bols.RemoveFileResponse
-	20,  // 105: chromiumos.test.api.bols.BolsService.GetDirInfo:output_type -> chromiumos.test.api.bols.GetDirInfoResponse
-	22,  // 106: chromiumos.test.api.bols.BolsService.MakeDir:output_type -> chromiumos.test.api.bols.MakeDirResponse
-	24,  // 107: chromiumos.test.api.bols.BolsService.MakeTempDir:output_type -> chromiumos.test.api.bols.MakeTempDirResponse
-	26,  // 108: chromiumos.test.api.bols.BolsService.RemoveDir:output_type -> chromiumos.test.api.bols.RemoveDirResponse
-	28,  // 109: chromiumos.test.api.bols.BolsService.DMesg:output_type -> chromiumos.test.api.bols.DMesgResponse
-	31,  // 110: chromiumos.test.api.bols.BolsService.WriteFileByBlock:output_type -> chromiumos.test.api.bols.WriteFileByBlockResponse
-	33,  // 111: chromiumos.test.api.bols.BolsService.ReadFileByBlock:output_type -> chromiumos.test.api.bols.ReadFileByBlockResponse
-	35,  // 112: chromiumos.test.api.bols.BolsService.RunMount:output_type -> chromiumos.test.api.bols.RunMountResponse
-	37,  // 113: chromiumos.test.api.bols.BolsService.RunUMount:output_type -> chromiumos.test.api.bols.RunUMountResponse
-	39,  // 114: chromiumos.test.api.bols.BolsService.DownloadImageToUSB:output_type -> chromiumos.test.api.bols.DownloadImageToUSBResponse
-	43,  // 115: chromiumos.test.api.bols.BolsService.StartServod:output_type -> chromiumos.test.api.bols.StartServodResponse
-	45,  // 116: chromiumos.test.api.bols.BolsService.StopServod:output_type -> chromiumos.test.api.bols.StopServodResponse
-	47,  // 117: chromiumos.test.api.bols.BolsService.StartEmptyContainer:output_type -> chromiumos.test.api.bols.StartEmptyContainerResponse
-	49,  // 118: chromiumos.test.api.bols.BolsService.GetServodStatus:output_type -> chromiumos.test.api.bols.GetServodStatusResponse
-	51,  // 119: chromiumos.test.api.bols.BolsService.HWInitServod:output_type -> chromiumos.test.api.bols.HWInitServodResponse
-	53,  // 120: chromiumos.test.api.bols.BolsService.DocServod:output_type -> chromiumos.test.api.bols.DocServodResponse
-	55,  // 121: chromiumos.test.api.bols.BolsService.GetServod:output_type -> chromiumos.test.api.bols.GetServodResponse
-	57,  // 122: chromiumos.test.api.bols.BolsService.SetServod:output_type -> chromiumos.test.api.bols.SetServodResponse
-	59,  // 123: chromiumos.test.api.bols.BolsService.GetServodVersion:output_type -> chromiumos.test.api.bols.GetServodVersionResponse
-	61,  // 124: chromiumos.test.api.bols.BolsService.EchoServod:output_type -> chromiumos.test.api.bols.EchoServodResponse
-	63,  // 125: chromiumos.test.api.bols.BolsService.GetServoTopology:output_type -> chromiumos.test.api.bols.GetServoTopologyResponse
-	66,  // 126: chromiumos.test.api.bols.BolsService.UpdateServoFirmware:output_type -> chromiumos.test.api.bols.UpdateServoFirmwareResponse
-	69,  // 127: chromiumos.test.api.bols.BolsService.RunFutility:output_type -> chromiumos.test.api.bols.RunFutilityResponse
-	71,  // 128: chromiumos.test.api.bols.BolsService.RunFlashEC:output_type -> chromiumos.test.api.bols.RunFlashECResponse
-	73,  // 129: chromiumos.test.api.bols.BolsService.RunGSCTool:output_type -> chromiumos.test.api.bols.RunGSCToolResponse
-	75,  // 130: chromiumos.test.api.bols.BolsService.RunUARTStressTester:output_type -> chromiumos.test.api.bols.RunUARTStressTesterResponse
-	78,  // 131: chromiumos.test.api.bols.BolsService.GetDolosVersion:output_type -> chromiumos.test.api.bols.GetDolosVersionResponse
-	80,  // 132: chromiumos.test.api.bols.BolsService.UpdateDolosVersion:output_type -> chromiumos.test.api.bols.UpdateDolosVersionResponse
-	82,  // 133: chromiumos.test.api.bols.BolsService.GetDolosStatus:output_type -> chromiumos.test.api.bols.GetDolosStatusResponse
-	84,  // 134: chromiumos.test.api.bols.BolsService.FindDolosUART:output_type -> chromiumos.test.api.bols.FindDolosUARTResponse
-	100, // [100:135] is the sub-list for method output_type
-	65,  // [65:100] is the sub-list for method input_type
+	85,  // 100: chromiumos.test.api.bols.BolsService.GetBolsVersion:input_type -> chromiumos.test.api.bols.GetBolsVersionRequest
+	8,   // 101: chromiumos.test.api.bols.BolsService.GetFileStat:output_type -> chromiumos.test.api.bols.GetFileStatResponse
+	10,  // 102: chromiumos.test.api.bols.BolsService.GetFile:output_type -> chromiumos.test.api.bols.GetFileResponse
+	12,  // 103: chromiumos.test.api.bols.BolsService.PutFile:output_type -> chromiumos.test.api.bols.PutFileResponse
+	16,  // 104: chromiumos.test.api.bols.BolsService.DownloadFile:output_type -> chromiumos.test.api.bols.DownloadFileResponse
+	18,  // 105: chromiumos.test.api.bols.BolsService.RemoveFile:output_type -> chromiumos.test.api.bols.RemoveFileResponse
+	20,  // 106: chromiumos.test.api.bols.BolsService.GetDirInfo:output_type -> chromiumos.test.api.bols.GetDirInfoResponse
+	22,  // 107: chromiumos.test.api.bols.BolsService.MakeDir:output_type -> chromiumos.test.api.bols.MakeDirResponse
+	24,  // 108: chromiumos.test.api.bols.BolsService.MakeTempDir:output_type -> chromiumos.test.api.bols.MakeTempDirResponse
+	26,  // 109: chromiumos.test.api.bols.BolsService.RemoveDir:output_type -> chromiumos.test.api.bols.RemoveDirResponse
+	28,  // 110: chromiumos.test.api.bols.BolsService.DMesg:output_type -> chromiumos.test.api.bols.DMesgResponse
+	31,  // 111: chromiumos.test.api.bols.BolsService.WriteFileByBlock:output_type -> chromiumos.test.api.bols.WriteFileByBlockResponse
+	33,  // 112: chromiumos.test.api.bols.BolsService.ReadFileByBlock:output_type -> chromiumos.test.api.bols.ReadFileByBlockResponse
+	35,  // 113: chromiumos.test.api.bols.BolsService.RunMount:output_type -> chromiumos.test.api.bols.RunMountResponse
+	37,  // 114: chromiumos.test.api.bols.BolsService.RunUMount:output_type -> chromiumos.test.api.bols.RunUMountResponse
+	39,  // 115: chromiumos.test.api.bols.BolsService.DownloadImageToUSB:output_type -> chromiumos.test.api.bols.DownloadImageToUSBResponse
+	43,  // 116: chromiumos.test.api.bols.BolsService.StartServod:output_type -> chromiumos.test.api.bols.StartServodResponse
+	45,  // 117: chromiumos.test.api.bols.BolsService.StopServod:output_type -> chromiumos.test.api.bols.StopServodResponse
+	47,  // 118: chromiumos.test.api.bols.BolsService.StartEmptyContainer:output_type -> chromiumos.test.api.bols.StartEmptyContainerResponse
+	49,  // 119: chromiumos.test.api.bols.BolsService.GetServodStatus:output_type -> chromiumos.test.api.bols.GetServodStatusResponse
+	51,  // 120: chromiumos.test.api.bols.BolsService.HWInitServod:output_type -> chromiumos.test.api.bols.HWInitServodResponse
+	53,  // 121: chromiumos.test.api.bols.BolsService.DocServod:output_type -> chromiumos.test.api.bols.DocServodResponse
+	55,  // 122: chromiumos.test.api.bols.BolsService.GetServod:output_type -> chromiumos.test.api.bols.GetServodResponse
+	57,  // 123: chromiumos.test.api.bols.BolsService.SetServod:output_type -> chromiumos.test.api.bols.SetServodResponse
+	59,  // 124: chromiumos.test.api.bols.BolsService.GetServodVersion:output_type -> chromiumos.test.api.bols.GetServodVersionResponse
+	61,  // 125: chromiumos.test.api.bols.BolsService.EchoServod:output_type -> chromiumos.test.api.bols.EchoServodResponse
+	63,  // 126: chromiumos.test.api.bols.BolsService.GetServoTopology:output_type -> chromiumos.test.api.bols.GetServoTopologyResponse
+	66,  // 127: chromiumos.test.api.bols.BolsService.UpdateServoFirmware:output_type -> chromiumos.test.api.bols.UpdateServoFirmwareResponse
+	69,  // 128: chromiumos.test.api.bols.BolsService.RunFutility:output_type -> chromiumos.test.api.bols.RunFutilityResponse
+	71,  // 129: chromiumos.test.api.bols.BolsService.RunFlashEC:output_type -> chromiumos.test.api.bols.RunFlashECResponse
+	73,  // 130: chromiumos.test.api.bols.BolsService.RunGSCTool:output_type -> chromiumos.test.api.bols.RunGSCToolResponse
+	75,  // 131: chromiumos.test.api.bols.BolsService.RunUARTStressTester:output_type -> chromiumos.test.api.bols.RunUARTStressTesterResponse
+	78,  // 132: chromiumos.test.api.bols.BolsService.GetDolosVersion:output_type -> chromiumos.test.api.bols.GetDolosVersionResponse
+	80,  // 133: chromiumos.test.api.bols.BolsService.UpdateDolosVersion:output_type -> chromiumos.test.api.bols.UpdateDolosVersionResponse
+	82,  // 134: chromiumos.test.api.bols.BolsService.GetDolosStatus:output_type -> chromiumos.test.api.bols.GetDolosStatusResponse
+	84,  // 135: chromiumos.test.api.bols.BolsService.FindDolosUART:output_type -> chromiumos.test.api.bols.FindDolosUARTResponse
+	86,  // 136: chromiumos.test.api.bols.BolsService.GetBolsVersion:output_type -> chromiumos.test.api.bols.GetBolsVersionResponse
+	101, // [101:137] is the sub-list for method output_type
+	65,  // [65:101] is the sub-list for method input_type
 	65,  // [65:65] is the sub-list for extension type_name
 	65,  // [65:65] is the sub-list for extension extendee
 	0,   // [0:65] is the sub-list for field type_name

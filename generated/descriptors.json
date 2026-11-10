@@ -26619,6 +26619,12 @@
               "name": "FindDolosUART",
               "options": {},
               "outputType": ".chromiumos.test.api.bols.FindDolosUARTResponse"
+            },
+            {
+              "inputType": ".chromiumos.test.api.bols.GetBolsVersionRequest",
+              "name": "GetBolsVersion",
+              "options": {},
+              "outputType": ".chromiumos.test.api.bols.GetBolsVersionResponse"
             }
           ],
           "name": "BolsService"

@@ -166,8 +166,8 @@ service BolsService {
 
   ///////// BOLS API /////////
 
-  // Kept commented out until BOLS servers roll out with GetBolsVersion support.
-  // rpc GetBolsVersion(GetBolsVersionRequest) returns (GetBolsVersionResponse) {}
+  // GetBolsVersion returns the running BOLS service version.
+  rpc GetBolsVersion(GetBolsVersionRequest) returns (GetBolsVersionResponse) {}
 }
 
 /////// Labstation Global Identifiers ////////

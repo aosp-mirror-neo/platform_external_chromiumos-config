@@ -119,6 +119,8 @@ type BolsServiceClient interface {
 	GetDolosStatus(ctx context.Context, in *GetDolosStatusRequest, opts ...grpc.CallOption) (*GetDolosStatusResponse, error)
 	// FindDolosUART finds the UART of the Dolos.
 	FindDolosUART(ctx context.Context, in *FindDolosUARTRequest, opts ...grpc.CallOption) (*FindDolosUARTResponse, error)
+	// GetBolsVersion returns the running BOLS service version.
+	GetBolsVersion(ctx context.Context, in *GetBolsVersionRequest, opts ...grpc.CallOption) (*GetBolsVersionResponse, error)
 }
 
 type bolsServiceClient struct {
@@ -563,6 +565,15 @@ func (c *bolsServiceClient) FindDolosUART(ctx context.Context, in *FindDolosUART
 	return out, nil
 }
 
+func (c *bolsServiceClient) GetBolsVersion(ctx context.Context, in *GetBolsVersionRequest, opts ...grpc.CallOption) (*GetBolsVersionResponse, error) {
+	out := new(GetBolsVersionResponse)
+	err := c.cc.Invoke(ctx, "/chromiumos.test.api.bols.BolsService/GetBolsVersion", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // BolsServiceServer is the server API for BolsService service.
 // All implementations should embed UnimplementedBolsServiceServer
 // for forward compatibility
@@ -664,6 +675,8 @@ type BolsServiceServer interface {
 	GetDolosStatus(context.Context, *GetDolosStatusRequest) (*GetDolosStatusResponse, error)
 	// FindDolosUART finds the UART of the Dolos.
 	FindDolosUART(context.Context, *FindDolosUARTRequest) (*FindDolosUARTResponse, error)
+	// GetBolsVersion returns the running BOLS service version.
+	GetBolsVersion(context.Context, *GetBolsVersionRequest) (*GetBolsVersionResponse, error)
 }
 
 // UnimplementedBolsServiceServer should be embedded to have forward compatible implementations.
@@ -774,6 +787,9 @@ func (UnimplementedBolsServiceServer) GetDolosStatus(context.Context, *GetDolosS
 }
 func (UnimplementedBolsServiceServer) FindDolosUART(context.Context, *FindDolosUARTRequest) (*FindDolosUARTResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method FindDolosUART not implemented")
+}
+func (UnimplementedBolsServiceServer) GetBolsVersion(context.Context, *GetBolsVersionRequest) (*GetBolsVersionResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetBolsVersion not implemented")
 }
 
 // UnsafeBolsServiceServer may be embedded to opt out of forward compatibility for this service.
@@ -1442,6 +1458,24 @@ func _BolsService_FindDolosUART_Handler(srv interface{}, ctx context.Context, de
 	return interceptor(ctx, in, info, handler)
 }
 
+func _BolsService_GetBolsVersion_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetBolsVersionRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(BolsServiceServer).GetBolsVersion(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/chromiumos.test.api.bols.BolsService/GetBolsVersion",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(BolsServiceServer).GetBolsVersion(ctx, req.(*GetBolsVersionRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // BolsService_ServiceDesc is the grpc.ServiceDesc for BolsService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -1568,6 +1602,10 @@ var BolsService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "FindDolosUART",
 			Handler:    _BolsService_FindDolosUART_Handler,
+		},
+		{
+			MethodName: "GetBolsVersion",
+			Handler:    _BolsService_GetBolsVersion_Handler,
 		},
 	},
 	Streams: []grpc.StreamDesc{
