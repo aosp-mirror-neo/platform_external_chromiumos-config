@@ -46,7 +46,8 @@ message ProvisionStartupRequest {
   // Address where servoNexus cft service can be reached.
   chromiumos.test.lab.api.IpEndpoint servo_nexus_addr = 4;
   // Address where lsNexus cft service can be reached.
-  chromiumos.test.lab.api.IpEndpoint ls_nexus_addr = 5;
+  // Deprecated: provisioning services should connect to BOLS directly.
+  chromiumos.test.lab.api.IpEndpoint ls_nexus_addr = 5 [deprecated = true];
   // K:Vs to be passed to the harness. Mostly will be used for args; but
   // technically can go for others.
   ExecutionMetadata execution_metadata = 6;

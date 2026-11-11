@@ -31508,6 +31508,9 @@
               "label": "LABEL_OPTIONAL",
               "name": "ls_nexus_addr",
               "number": 5,
+              "options": {
+                "deprecated": true
+              },
               "type": "TYPE_MESSAGE",
               "typeName": ".chromiumos.test.lab.api.IpEndpoint"
             },
