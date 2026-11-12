@@ -1,0 +1,3 @@
+protobuf==4.21.9 ; python_full_version < '3.12' \
+    --hash=sha256:29b4952e1fb7febf75f95039f9e0182b0ffe4d0da533eea10d0604773a5c8c2c \
+    --hash=sha256:48e2cd6b88c6ed3d5877a3ea40df79d08374088e89bedc32557348848dff250b

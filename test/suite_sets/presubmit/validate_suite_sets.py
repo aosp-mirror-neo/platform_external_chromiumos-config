@@ -2,15 +2,14 @@
 # Use of this source code is governed by a BSD-style license that can be
 # found in the LICENSE file.
 
-"""Contains all the pre-upload and pre-commit validation checks for SuiteSets"""
+# /// script
+# requires-python = '>=3.11,<3.12'
+# dependencies = [
+#   'protobuf==4.21.9'
+# ]
+# ///
 
-# [VPYTHON:BEGIN]
-# python_version: "3.11"
-# wheel: <
-#   name: "infra/python/wheels/protobuf-py3"
-#   version: "version:4.21.9"
-# >
-# [VPYTHON:END]
+"""Contains all the pre-upload and pre-commit validation checks for SuiteSets"""
 
 import argparse
 import pathlib

@@ -60,7 +60,7 @@ proto_converter(){
 
   # Call cros_conifg_proto_converter from chromeos-config.
   PYTHONPATH="${script_dir}/../../platform2/chromeos-config" \
-    vpython3 -vpython-spec "${script_dir}/../.vpython3" \
+    vpython3 -vpython-spec "${script_dir}/../vpython.toml" \
     -m cros_config_host.cros_config_proto_converter \
     --output "${_output_dir}/project-config.json" \
     --program_config "${_program_config}" \

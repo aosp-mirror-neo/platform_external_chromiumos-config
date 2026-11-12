@@ -3,6 +3,14 @@
 # Use of this source code is governed by a BSD-style license that can be
 # found in the LICENSE file.
 
+# /// script
+# requires-python = '>=3.11,<3.12'
+# dependencies = [
+#   'lxml==4.9.3',
+#   'protobuf==3.18.1'
+# ]
+# ///
+
 """Converts a ConfigBundle JSON file to Android configs.
 
 Reads a single JSON file representing a chromiumos.config.payload.ConfigBundle
@@ -11,18 +19,6 @@ and feature XML files.
 """
 
 # pylint: disable=too-many-lines
-
-# [VPYTHON:BEGIN]
-# python_version: "3.11"
-# wheel: <
-#   name: "infra/python/wheels/lxml/${vpython_platform}"
-#   version: "version:4.9.3"
-# >
-# wheel: <
-#   name: "infra/python/wheels/protobuf-py2_py3"
-#   version: "version:3.18.1"
-# >
-# [VPYTHON:END]
 
 import argparse
 import logging

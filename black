@@ -3,42 +3,19 @@
 # Use of this source code is governed by a BSD-style license that can be
 # found in the LICENSE file.
 
-# [VPYTHON:BEGIN]
-# python_version: "3.11"
-#
-# wheel: <
-#   name: "infra/python/wheels/black-py3"
-#   version: "version:25.1.0"
-# >
-# wheel: <
-#   name: "infra/python/wheels/click-py3"
-#   version: "version:8.0.3"
-# >
-# wheel: <
-#   name: "infra/python/wheels/mypy-extensions-py3"
-#   version: "version:0.4.3"
-# >
-# wheel: <
-#   name: "infra/python/wheels/packaging-py3"
-#   version: "version:23.0"
-# >
-# wheel: <
-#   name: "infra/python/wheels/pathspec-py3"
-#   version: "version:0.9.0"
-# >
-# wheel: <
-#   name: "infra/python/wheels/platformdirs-py3"
-#   version: "version:2.5.2"
-# >
-# wheel: <
-#   name: "infra/python/wheels/tomli-py3"
-#   version: "version:1.1.0"
-# >
-# wheel: <
-#   name: "infra/python/wheels/typing-extensions-py3"
-#   version: "version:4.0.1"
-# >
-# [VPYTHON:END]
+# /// script
+# requires-python = '>=3.11,<3.12'
+# dependencies = [
+#   'black==25.1.0',
+#   'click==8.0.3',
+#   'mypy-extensions==0.4.3',
+#   'packaging==23.0',
+#   'pathspec==0.9.0',
+#   'platformdirs==2.5.2',
+#   'tomli==1.1.0',
+#   'typing-extensions==4.0.1'
+# ]
+# ///
 
 """Wrapper for stable version of black that we control."""
 
