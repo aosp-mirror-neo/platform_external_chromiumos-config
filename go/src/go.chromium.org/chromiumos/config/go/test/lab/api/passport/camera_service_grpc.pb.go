@@ -32,6 +32,12 @@ type CameraServiceClient interface {
 	AnalyzeImageHSV(ctx context.Context, in *AnalyzeHSVRequest, opts ...grpc.CallOption) (*AnalyzeHSVResponse, error)
 	// CaptureVideo captures a video of user defined length.
 	CaptureVideo(ctx context.Context, in *CaptureVideoRequest, opts ...grpc.CallOption) (CameraService_CaptureVideoClient, error)
+	// StreamVideo streams live JPEG frames from a single camera until
+	// max_duration elapses or the client cancels. If the client reads slower than
+	// the camera produces frames, the camera driver drops frames once its buffer
+	// is full. Holds the camera device open for the duration of the stream and
+	// fails if the camera is already in use.
+	StreamVideo(ctx context.Context, in *StreamVideoRequest, opts ...grpc.CallOption) (CameraService_StreamVideoClient, error)
 }
 
 type cameraServiceClient struct {
@@ -101,6 +107,38 @@ func (x *cameraServiceCaptureVideoClient) Recv() (*CaptureVideoResponse, error) 
 	return m, nil
 }
 
+func (c *cameraServiceClient) StreamVideo(ctx context.Context, in *StreamVideoRequest, opts ...grpc.CallOption) (CameraService_StreamVideoClient, error) {
+	stream, err := c.cc.NewStream(ctx, &CameraService_ServiceDesc.Streams[1], "/chromiumos.test.lab.api.passport.CameraService/StreamVideo", opts...)
+	if err != nil {
+		return nil, err
+	}
+	x := &cameraServiceStreamVideoClient{stream}
+	if err := x.ClientStream.SendMsg(in); err != nil {
+		return nil, err
+	}
+	if err := x.ClientStream.CloseSend(); err != nil {
+		return nil, err
+	}
+	return x, nil
+}
+
+type CameraService_StreamVideoClient interface {
+	Recv() (*StreamVideoResponse, error)
+	grpc.ClientStream
+}
+
+type cameraServiceStreamVideoClient struct {
+	grpc.ClientStream
+}
+
+func (x *cameraServiceStreamVideoClient) Recv() (*StreamVideoResponse, error) {
+	m := new(StreamVideoResponse)
+	if err := x.ClientStream.RecvMsg(m); err != nil {
+		return nil, err
+	}
+	return m, nil
+}
+
 // CameraServiceServer is the server API for CameraService service.
 // All implementations should embed UnimplementedCameraServiceServer
 // for forward compatibility
@@ -115,6 +153,12 @@ type CameraServiceServer interface {
 	AnalyzeImageHSV(context.Context, *AnalyzeHSVRequest) (*AnalyzeHSVResponse, error)
 	// CaptureVideo captures a video of user defined length.
 	CaptureVideo(*CaptureVideoRequest, CameraService_CaptureVideoServer) error
+	// StreamVideo streams live JPEG frames from a single camera until
+	// max_duration elapses or the client cancels. If the client reads slower than
+	// the camera produces frames, the camera driver drops frames once its buffer
+	// is full. Holds the camera device open for the duration of the stream and
+	// fails if the camera is already in use.
+	StreamVideo(*StreamVideoRequest, CameraService_StreamVideoServer) error
 }
 
 // UnimplementedCameraServiceServer should be embedded to have forward compatible implementations.
@@ -132,6 +176,9 @@ func (UnimplementedCameraServiceServer) AnalyzeImageHSV(context.Context, *Analyz
 }
 func (UnimplementedCameraServiceServer) CaptureVideo(*CaptureVideoRequest, CameraService_CaptureVideoServer) error {
 	return status.Errorf(codes.Unimplemented, "method CaptureVideo not implemented")
+}
+func (UnimplementedCameraServiceServer) StreamVideo(*StreamVideoRequest, CameraService_StreamVideoServer) error {
+	return status.Errorf(codes.Unimplemented, "method StreamVideo not implemented")
 }
 
 // UnsafeCameraServiceServer may be embedded to opt out of forward compatibility for this service.
@@ -220,6 +267,27 @@ func (x *cameraServiceCaptureVideoServer) Send(m *CaptureVideoResponse) error {
 	return x.ServerStream.SendMsg(m)
 }
 
+func _CameraService_StreamVideo_Handler(srv interface{}, stream grpc.ServerStream) error {
+	m := new(StreamVideoRequest)
+	if err := stream.RecvMsg(m); err != nil {
+		return err
+	}
+	return srv.(CameraServiceServer).StreamVideo(m, &cameraServiceStreamVideoServer{stream})
+}
+
+type CameraService_StreamVideoServer interface {
+	Send(*StreamVideoResponse) error
+	grpc.ServerStream
+}
+
+type cameraServiceStreamVideoServer struct {
+	grpc.ServerStream
+}
+
+func (x *cameraServiceStreamVideoServer) Send(m *StreamVideoResponse) error {
+	return x.ServerStream.SendMsg(m)
+}
+
 // CameraService_ServiceDesc is the grpc.ServiceDesc for CameraService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -244,6 +312,11 @@ var CameraService_ServiceDesc = grpc.ServiceDesc{
 		{
 			StreamName:    "CaptureVideo",
 			Handler:       _CameraService_CaptureVideo_Handler,
+			ServerStreams: true,
+		},
+		{
+			StreamName:    "StreamVideo",
+			Handler:       _CameraService_StreamVideo_Handler,
 			ServerStreams: true,
 		},
 	},

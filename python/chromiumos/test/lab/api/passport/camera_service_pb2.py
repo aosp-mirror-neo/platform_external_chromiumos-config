@@ -11,6 +11,8 @@ from google.protobuf import symbol_database as _symbol_database
 _sym_db = _symbol_database.Default()
 
 
+from google.protobuf import duration_pb2 as google_dot_protobuf_dot_duration__pb2
+from google.protobuf import timestamp_pb2 as google_dot_protobuf_dot_timestamp__pb2
 
 
 DESCRIPTOR = _descriptor.FileDescriptor(
@@ -19,8 +21,9 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=b'Z:go.chromium.org/chromiumos/config/go/test/lab/api/passport',
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n5chromiumos/test/lab/api/passport/camera_service.proto\x12 chromiumos.test.lab.api.passport\"\x13\n\x11GetCamerasRequest\"\"\n\x06\x43\x61mera\x12\n\n\x02id\x18\x01 \x01(\t\x12\x0c\n\x04name\x18\x02 \x01(\t\"O\n\x12GetCamerasResponse\x12\x39\n\x07\x63\x61meras\x18\x01 \x03(\x0b\x32(.chromiumos.test.lab.api.passport.Camera\"\x8c\x01\n\x16GetAveragePixelRequest\x12\x11\n\tdevice_id\x18\x01 \x01(\t\x12\x1d\n\x15\x65xposure_microseconds\x18\x02 \x01(\x05\x12\r\n\x05width\x18\x03 \x01(\x05\x12\x0e\n\x06height\x18\x04 \x01(\x05\x12!\n\x19white_balance_temperature\x18\x05 \x01(\x05\"3\n\x05Pixel\x12\t\n\x01r\x18\x01 \x01(\x05\x12\t\n\x01g\x18\x02 \x01(\x05\x12\t\n\x01\x62\x18\x03 \x01(\x05\x12\t\n\x01\x61\x18\x04 \x01(\x05\"`\n\x17GetAveragePixelResponse\x12\x36\n\x05pixel\x18\x01 \x01(\x0b\x32\'.chromiumos.test.lab.api.passport.Pixel\x12\r\n\x05\x66rame\x18\x02 \x01(\x0c\"5\n\x03HSV\x12\x0b\n\x03hue\x18\x01 \x01(\x02\x12\x12\n\nsaturation\x18\x02 \x01(\x02\x12\r\n\x05value\x18\x03 \x01(\x02\"q\n\x07HSVMask\x12\x32\n\x03min\x18\x01 \x01(\x0b\x32%.chromiumos.test.lab.api.passport.HSV\x12\x32\n\x03max\x18\x02 \x01(\x0b\x32%.chromiumos.test.lab.api.passport.HSV\"\xaf\x02\n\x11\x41nalyzeHSVRequest\x12\x11\n\tdevice_id\x18\x01 \x01(\t\x12M\n\x05masks\x18\x02 \x03(\x0b\x32>.chromiumos.test.lab.api.passport.AnalyzeHSVRequest.MasksEntry\x12\x1d\n\x15\x65xposure_microseconds\x18\x03 \x01(\x05\x12\r\n\x05width\x18\x04 \x01(\x05\x12\x0e\n\x06height\x18\x05 \x01(\x05\x12!\n\x19white_balance_temperature\x18\x06 \x01(\x05\x1aW\n\nMasksEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\x38\n\x05value\x18\x02 \x01(\x0b\x32).chromiumos.test.lab.api.passport.HSVMask:\x02\x38\x01\"\xc6\x01\n\x12\x41nalyzeHSVResponse\x12g\n\x12percentage_matched\x18\x01 \x03(\x0b\x32K.chromiumos.test.lab.api.passport.AnalyzeHSVResponse.PercentageMatchedEntry\x12\r\n\x05\x66rame\x18\x02 \x01(\x0c\x1a\x38\n\x16PercentageMatchedEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\x02:\x02\x38\x01\"\xa4\x01\n\x13\x43\x61ptureVideoRequest\x12\x12\n\ndevice_ids\x18\x01 \x03(\t\x12\x18\n\x10\x64uration_seconds\x18\x02 \x01(\x05\x12\x1d\n\x15\x65xposure_microseconds\x18\x03 \x01(\x05\x12\r\n\x05width\x18\x04 \x01(\x05\x12\x0e\n\x06height\x18\x05 \x01(\x05\x12!\n\x19white_balance_temperature\x18\x06 \x01(\x05\"=\n\x14\x43\x61ptureVideoResponse\x12\r\n\x05video\x18\x01 \x01(\x0c\x12\x16\n\x0e\x66ile_extension\x18\x02 \x01(\t2\x99\x04\n\rCameraService\x12y\n\nGetCameras\x12\x33.chromiumos.test.lab.api.passport.GetCamerasRequest\x1a\x34.chromiumos.test.lab.api.passport.GetCamerasResponse\"\x00\x12\x88\x01\n\x0fGetAveragePixel\x12\x38.chromiumos.test.lab.api.passport.GetAveragePixelRequest\x1a\x39.chromiumos.test.lab.api.passport.GetAveragePixelResponse\"\x00\x12~\n\x0f\x41nalyzeImageHSV\x12\x33.chromiumos.test.lab.api.passport.AnalyzeHSVRequest\x1a\x34.chromiumos.test.lab.api.passport.AnalyzeHSVResponse\"\x00\x12\x81\x01\n\x0c\x43\x61ptureVideo\x12\x35.chromiumos.test.lab.api.passport.CaptureVideoRequest\x1a\x36.chromiumos.test.lab.api.passport.CaptureVideoResponse\"\x00\x30\x01\x42<Z:go.chromium.org/chromiumos/config/go/test/lab/api/passportb\x06proto3'
-)
+  serialized_pb=b'\n5chromiumos/test/lab/api/passport/camera_service.proto\x12 chromiumos.test.lab.api.passport\x1a\x1egoogle/protobuf/duration.proto\x1a\x1fgoogle/protobuf/timestamp.proto\"\x13\n\x11GetCamerasRequest\"\"\n\x06\x43\x61mera\x12\n\n\x02id\x18\x01 \x01(\t\x12\x0c\n\x04name\x18\x02 \x01(\t\"O\n\x12GetCamerasResponse\x12\x39\n\x07\x63\x61meras\x18\x01 \x03(\x0b\x32(.chromiumos.test.lab.api.passport.Camera\"\x8c\x01\n\x16GetAveragePixelRequest\x12\x11\n\tdevice_id\x18\x01 \x01(\t\x12\x1d\n\x15\x65xposure_microseconds\x18\x02 \x01(\x05\x12\r\n\x05width\x18\x03 \x01(\x05\x12\x0e\n\x06height\x18\x04 \x01(\x05\x12!\n\x19white_balance_temperature\x18\x05 \x01(\x05\"3\n\x05Pixel\x12\t\n\x01r\x18\x01 \x01(\x05\x12\t\n\x01g\x18\x02 \x01(\x05\x12\t\n\x01\x62\x18\x03 \x01(\x05\x12\t\n\x01\x61\x18\x04 \x01(\x05\"`\n\x17GetAveragePixelResponse\x12\x36\n\x05pixel\x18\x01 \x01(\x0b\x32\'.chromiumos.test.lab.api.passport.Pixel\x12\r\n\x05\x66rame\x18\x02 \x01(\x0c\"5\n\x03HSV\x12\x0b\n\x03hue\x18\x01 \x01(\x02\x12\x12\n\nsaturation\x18\x02 \x01(\x02\x12\r\n\x05value\x18\x03 \x01(\x02\"q\n\x07HSVMask\x12\x32\n\x03min\x18\x01 \x01(\x0b\x32%.chromiumos.test.lab.api.passport.HSV\x12\x32\n\x03max\x18\x02 \x01(\x0b\x32%.chromiumos.test.lab.api.passport.HSV\"\xaf\x02\n\x11\x41nalyzeHSVRequest\x12\x11\n\tdevice_id\x18\x01 \x01(\t\x12M\n\x05masks\x18\x02 \x03(\x0b\x32>.chromiumos.test.lab.api.passport.AnalyzeHSVRequest.MasksEntry\x12\x1d\n\x15\x65xposure_microseconds\x18\x03 \x01(\x05\x12\r\n\x05width\x18\x04 \x01(\x05\x12\x0e\n\x06height\x18\x05 \x01(\x05\x12!\n\x19white_balance_temperature\x18\x06 \x01(\x05\x1aW\n\nMasksEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\x38\n\x05value\x18\x02 \x01(\x0b\x32).chromiumos.test.lab.api.passport.HSVMask:\x02\x38\x01\"\xc6\x01\n\x12\x41nalyzeHSVResponse\x12g\n\x12percentage_matched\x18\x01 \x03(\x0b\x32K.chromiumos.test.lab.api.passport.AnalyzeHSVResponse.PercentageMatchedEntry\x12\r\n\x05\x66rame\x18\x02 \x01(\x0c\x1a\x38\n\x16PercentageMatchedEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\x02:\x02\x38\x01\"\xa4\x01\n\x13\x43\x61ptureVideoRequest\x12\x12\n\ndevice_ids\x18\x01 \x03(\t\x12\x18\n\x10\x64uration_seconds\x18\x02 \x01(\x05\x12\x1d\n\x15\x65xposure_microseconds\x18\x03 \x01(\x05\x12\r\n\x05width\x18\x04 \x01(\x05\x12\x0e\n\x06height\x18\x05 \x01(\x05\x12!\n\x19white_balance_temperature\x18\x06 \x01(\x05\"=\n\x14\x43\x61ptureVideoResponse\x12\r\n\x05video\x18\x01 \x01(\x0c\x12\x16\n\x0e\x66ile_extension\x18\x02 \x01(\t\"\xb9\x01\n\x12StreamVideoRequest\x12\x11\n\tdevice_id\x18\x01 \x01(\t\x12/\n\x0cmax_duration\x18\x02 \x01(\x0b\x32\x19.google.protobuf.Duration\x12\x1d\n\x15\x65xposure_microseconds\x18\x03 \x01(\x05\x12\r\n\x05width\x18\x04 \x01(\x05\x12\x0e\n\x06height\x18\x05 \x01(\x05\x12!\n\x19white_balance_temperature\x18\x06 \x01(\x05\"V\n\x13StreamVideoResponse\x12\r\n\x05\x66rame\x18\x01 \x01(\x0c\x12\x30\n\x0c\x63\x61pture_time\x18\x02 \x01(\x0b\x32\x1a.google.protobuf.Timestamp2\x99\x05\n\rCameraService\x12y\n\nGetCameras\x12\x33.chromiumos.test.lab.api.passport.GetCamerasRequest\x1a\x34.chromiumos.test.lab.api.passport.GetCamerasResponse\"\x00\x12\x88\x01\n\x0fGetAveragePixel\x12\x38.chromiumos.test.lab.api.passport.GetAveragePixelRequest\x1a\x39.chromiumos.test.lab.api.passport.GetAveragePixelResponse\"\x00\x12~\n\x0f\x41nalyzeImageHSV\x12\x33.chromiumos.test.lab.api.passport.AnalyzeHSVRequest\x1a\x34.chromiumos.test.lab.api.passport.AnalyzeHSVResponse\"\x00\x12\x81\x01\n\x0c\x43\x61ptureVideo\x12\x35.chromiumos.test.lab.api.passport.CaptureVideoRequest\x1a\x36.chromiumos.test.lab.api.passport.CaptureVideoResponse\"\x00\x30\x01\x12~\n\x0bStreamVideo\x12\x34.chromiumos.test.lab.api.passport.StreamVideoRequest\x1a\x35.chromiumos.test.lab.api.passport.StreamVideoResponse\"\x00\x30\x01\x42<Z:go.chromium.org/chromiumos/config/go/test/lab/api/passportb\x06proto3'
+  ,
+  dependencies=[google_dot_protobuf_dot_duration__pb2.DESCRIPTOR,google_dot_protobuf_dot_timestamp__pb2.DESCRIPTOR,])
 
 
 
@@ -45,8 +48,8 @@ _GETCAMERASREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=91,
-  serialized_end=110,
+  serialized_start=156,
+  serialized_end=175,
 )
 
 
@@ -84,8 +87,8 @@ _CAMERA = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=112,
-  serialized_end=146,
+  serialized_start=177,
+  serialized_end=211,
 )
 
 
@@ -116,8 +119,8 @@ _GETCAMERASRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=148,
-  serialized_end=227,
+  serialized_start=213,
+  serialized_end=292,
 )
 
 
@@ -176,8 +179,8 @@ _GETAVERAGEPIXELREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=230,
-  serialized_end=370,
+  serialized_start=295,
+  serialized_end=435,
 )
 
 
@@ -229,8 +232,8 @@ _PIXEL = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=372,
-  serialized_end=423,
+  serialized_start=437,
+  serialized_end=488,
 )
 
 
@@ -268,8 +271,8 @@ _GETAVERAGEPIXELRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=425,
-  serialized_end=521,
+  serialized_start=490,
+  serialized_end=586,
 )
 
 
@@ -314,8 +317,8 @@ _HSV = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=523,
-  serialized_end=576,
+  serialized_start=588,
+  serialized_end=641,
 )
 
 
@@ -353,8 +356,8 @@ _HSVMASK = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=578,
-  serialized_end=691,
+  serialized_start=643,
+  serialized_end=756,
 )
 
 
@@ -392,8 +395,8 @@ _ANALYZEHSVREQUEST_MASKSENTRY = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=910,
-  serialized_end=997,
+  serialized_start=975,
+  serialized_end=1062,
 )
 
 _ANALYZEHSVREQUEST = _descriptor.Descriptor(
@@ -458,8 +461,8 @@ _ANALYZEHSVREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=694,
-  serialized_end=997,
+  serialized_start=759,
+  serialized_end=1062,
 )
 
 
@@ -497,8 +500,8 @@ _ANALYZEHSVRESPONSE_PERCENTAGEMATCHEDENTRY = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1142,
-  serialized_end=1198,
+  serialized_start=1207,
+  serialized_end=1263,
 )
 
 _ANALYZEHSVRESPONSE = _descriptor.Descriptor(
@@ -535,8 +538,8 @@ _ANALYZEHSVRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1000,
-  serialized_end=1198,
+  serialized_start=1065,
+  serialized_end=1263,
 )
 
 
@@ -602,8 +605,8 @@ _CAPTUREVIDEOREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1201,
-  serialized_end=1365,
+  serialized_start=1266,
+  serialized_end=1430,
 )
 
 
@@ -641,8 +644,114 @@ _CAPTUREVIDEORESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1367,
-  serialized_end=1428,
+  serialized_start=1432,
+  serialized_end=1493,
+)
+
+
+_STREAMVIDEOREQUEST = _descriptor.Descriptor(
+  name='StreamVideoRequest',
+  full_name='chromiumos.test.lab.api.passport.StreamVideoRequest',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='device_id', full_name='chromiumos.test.lab.api.passport.StreamVideoRequest.device_id', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='max_duration', full_name='chromiumos.test.lab.api.passport.StreamVideoRequest.max_duration', index=1,
+      number=2, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='exposure_microseconds', full_name='chromiumos.test.lab.api.passport.StreamVideoRequest.exposure_microseconds', index=2,
+      number=3, type=5, cpp_type=1, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='width', full_name='chromiumos.test.lab.api.passport.StreamVideoRequest.width', index=3,
+      number=4, type=5, cpp_type=1, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='height', full_name='chromiumos.test.lab.api.passport.StreamVideoRequest.height', index=4,
+      number=5, type=5, cpp_type=1, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='white_balance_temperature', full_name='chromiumos.test.lab.api.passport.StreamVideoRequest.white_balance_temperature', index=5,
+      number=6, type=5, cpp_type=1, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=1496,
+  serialized_end=1681,
+)
+
+
+_STREAMVIDEORESPONSE = _descriptor.Descriptor(
+  name='StreamVideoResponse',
+  full_name='chromiumos.test.lab.api.passport.StreamVideoResponse',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='frame', full_name='chromiumos.test.lab.api.passport.StreamVideoResponse.frame', index=0,
+      number=1, type=12, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"",
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='capture_time', full_name='chromiumos.test.lab.api.passport.StreamVideoResponse.capture_time', index=1,
+      number=2, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=1683,
+  serialized_end=1769,
 )
 
 _GETCAMERASRESPONSE.fields_by_name['cameras'].message_type = _CAMERA
@@ -654,6 +763,8 @@ _ANALYZEHSVREQUEST_MASKSENTRY.containing_type = _ANALYZEHSVREQUEST
 _ANALYZEHSVREQUEST.fields_by_name['masks'].message_type = _ANALYZEHSVREQUEST_MASKSENTRY
 _ANALYZEHSVRESPONSE_PERCENTAGEMATCHEDENTRY.containing_type = _ANALYZEHSVRESPONSE
 _ANALYZEHSVRESPONSE.fields_by_name['percentage_matched'].message_type = _ANALYZEHSVRESPONSE_PERCENTAGEMATCHEDENTRY
+_STREAMVIDEOREQUEST.fields_by_name['max_duration'].message_type = google_dot_protobuf_dot_duration__pb2._DURATION
+_STREAMVIDEORESPONSE.fields_by_name['capture_time'].message_type = google_dot_protobuf_dot_timestamp__pb2._TIMESTAMP
 DESCRIPTOR.message_types_by_name['GetCamerasRequest'] = _GETCAMERASREQUEST
 DESCRIPTOR.message_types_by_name['Camera'] = _CAMERA
 DESCRIPTOR.message_types_by_name['GetCamerasResponse'] = _GETCAMERASRESPONSE
@@ -666,6 +777,8 @@ DESCRIPTOR.message_types_by_name['AnalyzeHSVRequest'] = _ANALYZEHSVREQUEST
 DESCRIPTOR.message_types_by_name['AnalyzeHSVResponse'] = _ANALYZEHSVRESPONSE
 DESCRIPTOR.message_types_by_name['CaptureVideoRequest'] = _CAPTUREVIDEOREQUEST
 DESCRIPTOR.message_types_by_name['CaptureVideoResponse'] = _CAPTUREVIDEORESPONSE
+DESCRIPTOR.message_types_by_name['StreamVideoRequest'] = _STREAMVIDEOREQUEST
+DESCRIPTOR.message_types_by_name['StreamVideoResponse'] = _STREAMVIDEORESPONSE
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
 GetCamerasRequest = _reflection.GeneratedProtocolMessageType('GetCamerasRequest', (_message.Message,), {
@@ -768,6 +881,20 @@ CaptureVideoResponse = _reflection.GeneratedProtocolMessageType('CaptureVideoRes
   })
 _sym_db.RegisterMessage(CaptureVideoResponse)
 
+StreamVideoRequest = _reflection.GeneratedProtocolMessageType('StreamVideoRequest', (_message.Message,), {
+  'DESCRIPTOR' : _STREAMVIDEOREQUEST,
+  '__module__' : 'chromiumos.test.lab.api.passport.camera_service_pb2'
+  # @@protoc_insertion_point(class_scope:chromiumos.test.lab.api.passport.StreamVideoRequest)
+  })
+_sym_db.RegisterMessage(StreamVideoRequest)
+
+StreamVideoResponse = _reflection.GeneratedProtocolMessageType('StreamVideoResponse', (_message.Message,), {
+  'DESCRIPTOR' : _STREAMVIDEORESPONSE,
+  '__module__' : 'chromiumos.test.lab.api.passport.camera_service_pb2'
+  # @@protoc_insertion_point(class_scope:chromiumos.test.lab.api.passport.StreamVideoResponse)
+  })
+_sym_db.RegisterMessage(StreamVideoResponse)
+
 
 DESCRIPTOR._options = None
 _ANALYZEHSVREQUEST_MASKSENTRY._options = None
@@ -780,8 +907,8 @@ _CAMERASERVICE = _descriptor.ServiceDescriptor(
   index=0,
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_start=1431,
-  serialized_end=1968,
+  serialized_start=1772,
+  serialized_end=2437,
   methods=[
   _descriptor.MethodDescriptor(
     name='GetCameras',
@@ -820,6 +947,16 @@ _CAMERASERVICE = _descriptor.ServiceDescriptor(
     containing_service=None,
     input_type=_CAPTUREVIDEOREQUEST,
     output_type=_CAPTUREVIDEORESPONSE,
+    serialized_options=None,
+    create_key=_descriptor._internal_create_key,
+  ),
+  _descriptor.MethodDescriptor(
+    name='StreamVideo',
+    full_name='chromiumos.test.lab.api.passport.CameraService.StreamVideo',
+    index=4,
+    containing_service=None,
+    input_type=_STREAMVIDEOREQUEST,
+    output_type=_STREAMVIDEORESPONSE,
     serialized_options=None,
     create_key=_descriptor._internal_create_key,
   ),

@@ -6,6 +6,9 @@ syntax = "proto3";
 
 package chromiumos.test.lab.api.passport;
 
+import "google/protobuf/duration.proto";
+import "google/protobuf/timestamp.proto";
+
 option go_package = "go.chromium.org/chromiumos/config/go/test/lab/api/passport";
 
 // CameraService is a service which controls a set of cameras connected to a
@@ -25,6 +28,12 @@ service CameraService {
   // CaptureVideo captures a video of user defined length.
   rpc CaptureVideo(CaptureVideoRequest) returns (stream CaptureVideoResponse) {
   };
+  // StreamVideo streams live JPEG frames from a single camera until
+  // max_duration elapses or the client cancels. If the client reads slower than
+  // the camera produces frames, the camera driver drops frames once its buffer
+  // is full. Holds the camera device open for the duration of the stream and
+  // fails if the camera is already in use.
+  rpc StreamVideo(StreamVideoRequest) returns (stream StreamVideoResponse) {}
 }
 
 message GetCamerasRequest {}
@@ -164,4 +173,33 @@ message CaptureVideoResponse {
 
   // The file extension for the captured video (e.g., "avi", "mjpeg").
   string file_extension = 2;
+}
+
+message StreamVideoRequest {
+  // The unique ID of the camera to stream.
+  string device_id = 1;
+
+  // The maximum duration of the stream. If unset or zero, the server maximum
+  // (12 hours) is used. Negative values or values above 12 hours are rejected.
+  google.protobuf.Duration max_duration = 2;
+
+  // Optional, the exposure time in microseconds to use when capturing the
+  // video. If unset or zero, the camera's auto exposure setting is used.
+  int32 exposure_microseconds = 3;
+  // Optional, the width of the video to capture in pixels. If either width or
+  // height is unset or zero, the server default (640x480) is used.
+  int32 width = 4;
+  // Optional, the height of the video to capture in pixels. If either width or
+  // height is unset or zero, the server default (640x480) is used.
+  int32 height = 5;
+  // Optional, the white balance temperature in Kelvin (e.g. 6500). If unset or
+  // zero, the server default (4600K) is used.
+  int32 white_balance_temperature = 6;
+}
+
+message StreamVideoResponse {
+  // Complete JPEG-encoded frame (including Huffman tables).
+  bytes frame = 1;
+  // Server timestamp when the frame was captured.
+  google.protobuf.Timestamp capture_time = 2;
 }

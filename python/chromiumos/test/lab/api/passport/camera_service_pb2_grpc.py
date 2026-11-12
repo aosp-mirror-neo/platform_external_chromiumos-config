@@ -38,6 +38,11 @@ class CameraServiceStub(object):
                 request_serializer=chromiumos_dot_test_dot_lab_dot_api_dot_passport_dot_camera__service__pb2.CaptureVideoRequest.SerializeToString,
                 response_deserializer=chromiumos_dot_test_dot_lab_dot_api_dot_passport_dot_camera__service__pb2.CaptureVideoResponse.FromString,
                 )
+        self.StreamVideo = channel.unary_stream(
+                '/chromiumos.test.lab.api.passport.CameraService/StreamVideo',
+                request_serializer=chromiumos_dot_test_dot_lab_dot_api_dot_passport_dot_camera__service__pb2.StreamVideoRequest.SerializeToString,
+                response_deserializer=chromiumos_dot_test_dot_lab_dot_api_dot_passport_dot_camera__service__pb2.StreamVideoResponse.FromString,
+                )
 
 
 class CameraServiceServicer(object):
@@ -77,6 +82,17 @@ class CameraServiceServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def StreamVideo(self, request, context):
+        """StreamVideo streams live JPEG frames from a single camera until
+        max_duration elapses or the client cancels. If the client reads slower than
+        the camera produces frames, the camera driver drops frames once its buffer
+        is full. Holds the camera device open for the duration of the stream and
+        fails if the camera is already in use.
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
 
 def add_CameraServiceServicer_to_server(servicer, server):
     rpc_method_handlers = {
@@ -99,6 +115,11 @@ def add_CameraServiceServicer_to_server(servicer, server):
                     servicer.CaptureVideo,
                     request_deserializer=chromiumos_dot_test_dot_lab_dot_api_dot_passport_dot_camera__service__pb2.CaptureVideoRequest.FromString,
                     response_serializer=chromiumos_dot_test_dot_lab_dot_api_dot_passport_dot_camera__service__pb2.CaptureVideoResponse.SerializeToString,
+            ),
+            'StreamVideo': grpc.unary_stream_rpc_method_handler(
+                    servicer.StreamVideo,
+                    request_deserializer=chromiumos_dot_test_dot_lab_dot_api_dot_passport_dot_camera__service__pb2.StreamVideoRequest.FromString,
+                    response_serializer=chromiumos_dot_test_dot_lab_dot_api_dot_passport_dot_camera__service__pb2.StreamVideoResponse.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -179,5 +200,22 @@ class CameraService(object):
         return grpc.experimental.unary_stream(request, target, '/chromiumos.test.lab.api.passport.CameraService/CaptureVideo',
             chromiumos_dot_test_dot_lab_dot_api_dot_passport_dot_camera__service__pb2.CaptureVideoRequest.SerializeToString,
             chromiumos_dot_test_dot_lab_dot_api_dot_passport_dot_camera__service__pb2.CaptureVideoResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def StreamVideo(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_stream(request, target, '/chromiumos.test.lab.api.passport.CameraService/StreamVideo',
+            chromiumos_dot_test_dot_lab_dot_api_dot_passport_dot_camera__service__pb2.StreamVideoRequest.SerializeToString,
+            chromiumos_dot_test_dot_lab_dot_api_dot_passport_dot_camera__service__pb2.StreamVideoResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)

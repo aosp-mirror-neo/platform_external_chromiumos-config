@@ -45340,6 +45340,10 @@
         "isImport": false,
         "isSyntaxUnspecified": false
       },
+      "dependency": [
+        "google/protobuf/duration.proto",
+        "google/protobuf/timestamp.proto"
+      ],
       "messageType": [
         {
           "name": "GetCamerasRequest"
@@ -45698,6 +45702,74 @@
             }
           ],
           "name": "CaptureVideoResponse"
+        },
+        {
+          "field": [
+            {
+              "jsonName": "deviceId",
+              "label": "LABEL_OPTIONAL",
+              "name": "device_id",
+              "number": 1,
+              "type": "TYPE_STRING"
+            },
+            {
+              "jsonName": "maxDuration",
+              "label": "LABEL_OPTIONAL",
+              "name": "max_duration",
+              "number": 2,
+              "type": "TYPE_MESSAGE",
+              "typeName": ".google.protobuf.Duration"
+            },
+            {
+              "jsonName": "exposureMicroseconds",
+              "label": "LABEL_OPTIONAL",
+              "name": "exposure_microseconds",
+              "number": 3,
+              "type": "TYPE_INT32"
+            },
+            {
+              "jsonName": "width",
+              "label": "LABEL_OPTIONAL",
+              "name": "width",
+              "number": 4,
+              "type": "TYPE_INT32"
+            },
+            {
+              "jsonName": "height",
+              "label": "LABEL_OPTIONAL",
+              "name": "height",
+              "number": 5,
+              "type": "TYPE_INT32"
+            },
+            {
+              "jsonName": "whiteBalanceTemperature",
+              "label": "LABEL_OPTIONAL",
+              "name": "white_balance_temperature",
+              "number": 6,
+              "type": "TYPE_INT32"
+            }
+          ],
+          "name": "StreamVideoRequest"
+        },
+        {
+          "field": [
+            {
+              "jsonName": "frame",
+              "label": "LABEL_OPTIONAL",
+              "name": "frame",
+              "number": 1,
+              "type": "TYPE_BYTES"
+            },
+            {
+              "jsonName": "captureTime",
+              "label": "LABEL_OPTIONAL",
+              "name": "capture_time",
+              "number": 2,
+              "type": "TYPE_MESSAGE",
+              "typeName": ".google.protobuf.Timestamp"
+            }
+          ],
+          "name": "StreamVideoResponse"
         }
       ],
       "name": "chromiumos/test/lab/api/passport/camera_service.proto",
@@ -45731,6 +45803,13 @@
               "name": "CaptureVideo",
               "options": {},
               "outputType": ".chromiumos.test.lab.api.passport.CaptureVideoResponse",
+              "serverStreaming": true
+            },
+            {
+              "inputType": ".chromiumos.test.lab.api.passport.StreamVideoRequest",
+              "name": "StreamVideo",
+              "options": {},
+              "outputType": ".chromiumos.test.lab.api.passport.StreamVideoResponse",
               "serverStreaming": true
             }
           ],
