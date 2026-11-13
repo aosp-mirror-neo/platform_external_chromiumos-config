@@ -98,4 +98,14 @@ message ProvisionAttemptRecord {
   string provisioning_sub_state = 19;
   // Version or hash of the provisioning tool binary executing the attempt.
   string provisioning_tool_version = 20;
+  // Execution environment requested by the test caller (for example,
+  // ProvisionStartupRequest.environment from CTPv2).
+  //
+  // Unlike infra_info.execution_channel (the host runner channel from
+  // DRONE_CHANNEL or EXECUTION_CHANNEL) and provisioning_tool_version (the
+  // provisioner binary build revision), this field records the target
+  // test/payload release environment. Empty values default to "prod" in
+  // downstream SLO queries.
+  // Examples: "prod", "staging", "dev".
+  string execution_environment = 21;
 }

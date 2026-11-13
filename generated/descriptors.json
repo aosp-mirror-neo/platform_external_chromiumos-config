@@ -44264,6 +44264,13 @@
               "name": "provisioning_tool_version",
               "number": 20,
               "type": "TYPE_STRING"
+            },
+            {
+              "jsonName": "executionEnvironment",
+              "label": "LABEL_OPTIONAL",
+              "name": "execution_environment",
+              "number": 21,
+              "type": "TYPE_STRING"
             }
           ],
           "name": "ProvisionAttemptRecord",
