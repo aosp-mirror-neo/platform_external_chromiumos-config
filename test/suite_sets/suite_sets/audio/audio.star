@@ -8,7 +8,7 @@ def _audio_pre_fsi():
     return create.suite(
         suite_id = "audio_pre_fsi",
         owners = [
-            "chromeos-audio-bugs@google.com",
+            "lt-audio-tests@google.com",
             "aaronyu@google.com",
         ],
         bug_component = "b:776546",
