@@ -129,9 +129,37 @@ service BolsService {
   // RunFutility run futility tool on labstation.
   rpc RunFutility(RunFutilityRequest) returns (RunFutilityResponse) {}
 
+  // RunFutilityStream runs futility on labstation/container and streams
+  // stdout/stderr chunks kept below the 4 MiB gRPC message size limit, followed
+  // by a single final exit_status message.
+  //
+  // Error and completion contract:
+  // - Pre-launch validation, setup, or transport failures return a gRPC error.
+  // - Unlike unary RunFutility, once the process runs and terminates, both zero
+  //   and non-zero exits (including negative signal codes such as -1) are
+  //   reported in exit_status and the stream closes with gRPC OK.
+  // - exit_status is always sent once as the last message on normal completion,
+  //   so receiving EOF without exit_status indicates a truncated stream.
+  rpc RunFutilityStream(RunFutilityStreamRequest)
+      returns (stream RunFutilityStreamResponse) {}
+
   // RunFlashEC run EC firmware flashing from the servo.
   // In most of implementation, it runs flash_ec tool on labstation.
   rpc RunFlashEC(RunFlashECRequest) returns (RunFlashECResponse) {}
+
+  // RunFlashECStream runs flash_ec on labstation/container and streams
+  // stdout/stderr chunks kept below the 4 MiB gRPC message size limit, followed
+  // by a single final exit_status message.
+  //
+  // Error and completion contract:
+  // - Pre-launch validation, setup, or transport failures return a gRPC error.
+  // - Unlike unary RunFlashEC, once the process runs and terminates, both zero
+  //   and non-zero exits (including negative signal codes such as -1) are
+  //   reported in exit_status and the stream closes with gRPC OK.
+  // - exit_status is always sent once as the last message on normal completion,
+  //   so receiving EOF without exit_status indicates a truncated stream.
+  rpc RunFlashECStream(RunFlashECStreamRequest)
+      returns (stream RunFlashECStreamResponse) {}
 
   // RunGSCTool run gsctool on labstation.
   // Example:
@@ -642,6 +670,14 @@ message OutputStream {
   bytes stderr = 2;
 }
 
+message CommandExitStatus {
+  // Process exit code (0 indicates success; non-zero values, including negative
+  // signal codes such as -1, indicate command failure).
+  int32 exit_code = 1;
+  // Error description when exit_code is non-zero.
+  string error_message = 2;
+}
+
 message RunFutilityRequest {
   // The station identifier.
   StationIdentifier station_id = 1;
@@ -656,6 +692,27 @@ message RunFutilityRequest {
 
 message RunFutilityResponse {
   OutputStream output = 1;
+}
+
+message RunFutilityStreamRequest {
+  // The station identifier.
+  StationIdentifier station_id = 1;
+
+  // List of parameters used at execution.
+  // If --servo_port is specified and the port is not the same as the one
+  // specified in station_id, a gRPC error will be returned before launch.
+  // Example: "futility gbb --servo_port=9999 --set --flash --flags=0x18"
+  // Params: ["gbb", "--set", "--servo_port=9999", "--flash", "--flags=0x18"]
+  repeated string params = 2;
+}
+
+message RunFutilityStreamResponse {
+  oneof payload {
+    // Chunk of stdout/stderr output from the running command (< 4 MiB).
+    OutputStream output = 1;
+    // Final message sent once after the command exits.
+    CommandExitStatus exit_status = 2;
+  }
 }
 
 message RunFlashECRequest {
@@ -675,6 +732,29 @@ message RunFlashECRequest {
 
 message RunFlashECResponse {
   OutputStream output = 1;
+}
+
+message RunFlashECStreamRequest {
+  // The station identifier.
+  StationIdentifier station_id = 1;
+
+  // List of parameters used at execution.
+  // If --port is specified and the port is not the same as the one specified in
+  // station_id, a gRPC error will be returned before launch.
+  // Example:
+  //  flash_ec --chip=chip1 --image=/tmp/ec.bin --port=9999 --verify --verbose
+  //  Params: ["--chip=chip1", "--image=/tmp/ec.bin", "--port=9999", "--verify",
+  //  "--verbose"]
+  repeated string params = 2;
+}
+
+message RunFlashECStreamResponse {
+  oneof payload {
+    // Chunk of stdout/stderr output from the running command (< 4 MiB).
+    OutputStream output = 1;
+    // Final message sent once after the command exits.
+    CommandExitStatus exit_status = 2;
+  }
 }
 
 message RunGSCToolRequest {
@@ -777,4 +857,3 @@ message GetBolsVersionRequest {}
 message GetBolsVersionResponse {
   string version = 1;
 }
-

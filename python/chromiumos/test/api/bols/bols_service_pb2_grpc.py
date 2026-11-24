@@ -157,10 +157,20 @@ class BolsServiceStub(object):
                 request_serializer=chromiumos_dot_test_dot_api_dot_bols_dot_bols__service__pb2.RunFutilityRequest.SerializeToString,
                 response_deserializer=chromiumos_dot_test_dot_api_dot_bols_dot_bols__service__pb2.RunFutilityResponse.FromString,
                 )
+        self.RunFutilityStream = channel.unary_stream(
+                '/chromiumos.test.api.bols.BolsService/RunFutilityStream',
+                request_serializer=chromiumos_dot_test_dot_api_dot_bols_dot_bols__service__pb2.RunFutilityStreamRequest.SerializeToString,
+                response_deserializer=chromiumos_dot_test_dot_api_dot_bols_dot_bols__service__pb2.RunFutilityStreamResponse.FromString,
+                )
         self.RunFlashEC = channel.unary_unary(
                 '/chromiumos.test.api.bols.BolsService/RunFlashEC',
                 request_serializer=chromiumos_dot_test_dot_api_dot_bols_dot_bols__service__pb2.RunFlashECRequest.SerializeToString,
                 response_deserializer=chromiumos_dot_test_dot_api_dot_bols_dot_bols__service__pb2.RunFlashECResponse.FromString,
+                )
+        self.RunFlashECStream = channel.unary_stream(
+                '/chromiumos.test.api.bols.BolsService/RunFlashECStream',
+                request_serializer=chromiumos_dot_test_dot_api_dot_bols_dot_bols__service__pb2.RunFlashECStreamRequest.SerializeToString,
+                response_deserializer=chromiumos_dot_test_dot_api_dot_bols_dot_bols__service__pb2.RunFlashECStreamResponse.FromString,
                 )
         self.RunGSCTool = channel.unary_unary(
                 '/chromiumos.test.api.bols.BolsService/RunGSCTool',
@@ -423,9 +433,43 @@ class BolsServiceServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def RunFutilityStream(self, request, context):
+        """RunFutilityStream runs futility on labstation/container and streams
+        stdout/stderr chunks kept below the 4 MiB gRPC message size limit, followed
+        by a single final exit_status message.
+
+        Error and completion contract:
+        - Pre-launch validation, setup, or transport failures return a gRPC error.
+        - Unlike unary RunFutility, once the process runs and terminates, both zero
+        and non-zero exits (including negative signal codes such as -1) are
+        reported in exit_status and the stream closes with gRPC OK.
+        - exit_status is always sent once as the last message on normal completion,
+        so receiving EOF without exit_status indicates a truncated stream.
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
     def RunFlashEC(self, request, context):
         """RunFlashEC run EC firmware flashing from the servo.
         In most of implementation, it runs flash_ec tool on labstation.
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def RunFlashECStream(self, request, context):
+        """RunFlashECStream runs flash_ec on labstation/container and streams
+        stdout/stderr chunks kept below the 4 MiB gRPC message size limit, followed
+        by a single final exit_status message.
+
+        Error and completion contract:
+        - Pre-launch validation, setup, or transport failures return a gRPC error.
+        - Unlike unary RunFlashEC, once the process runs and terminates, both zero
+        and non-zero exits (including negative signal codes such as -1) are
+        reported in exit_status and the stream closes with gRPC OK.
+        - exit_status is always sent once as the last message on normal completion,
+        so receiving EOF without exit_status indicates a truncated stream.
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -635,10 +679,20 @@ def add_BolsServiceServicer_to_server(servicer, server):
                     request_deserializer=chromiumos_dot_test_dot_api_dot_bols_dot_bols__service__pb2.RunFutilityRequest.FromString,
                     response_serializer=chromiumos_dot_test_dot_api_dot_bols_dot_bols__service__pb2.RunFutilityResponse.SerializeToString,
             ),
+            'RunFutilityStream': grpc.unary_stream_rpc_method_handler(
+                    servicer.RunFutilityStream,
+                    request_deserializer=chromiumos_dot_test_dot_api_dot_bols_dot_bols__service__pb2.RunFutilityStreamRequest.FromString,
+                    response_serializer=chromiumos_dot_test_dot_api_dot_bols_dot_bols__service__pb2.RunFutilityStreamResponse.SerializeToString,
+            ),
             'RunFlashEC': grpc.unary_unary_rpc_method_handler(
                     servicer.RunFlashEC,
                     request_deserializer=chromiumos_dot_test_dot_api_dot_bols_dot_bols__service__pb2.RunFlashECRequest.FromString,
                     response_serializer=chromiumos_dot_test_dot_api_dot_bols_dot_bols__service__pb2.RunFlashECResponse.SerializeToString,
+            ),
+            'RunFlashECStream': grpc.unary_stream_rpc_method_handler(
+                    servicer.RunFlashECStream,
+                    request_deserializer=chromiumos_dot_test_dot_api_dot_bols_dot_bols__service__pb2.RunFlashECStreamRequest.FromString,
+                    response_serializer=chromiumos_dot_test_dot_api_dot_bols_dot_bols__service__pb2.RunFlashECStreamResponse.SerializeToString,
             ),
             'RunGSCTool': grpc.unary_unary_rpc_method_handler(
                     servicer.RunGSCTool,
@@ -1165,6 +1219,23 @@ class BolsService(object):
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
     @staticmethod
+    def RunFutilityStream(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_stream(request, target, '/chromiumos.test.api.bols.BolsService/RunFutilityStream',
+            chromiumos_dot_test_dot_api_dot_bols_dot_bols__service__pb2.RunFutilityStreamRequest.SerializeToString,
+            chromiumos_dot_test_dot_api_dot_bols_dot_bols__service__pb2.RunFutilityStreamResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
     def RunFlashEC(request,
             target,
             options=(),
@@ -1178,6 +1249,23 @@ class BolsService(object):
         return grpc.experimental.unary_unary(request, target, '/chromiumos.test.api.bols.BolsService/RunFlashEC',
             chromiumos_dot_test_dot_api_dot_bols_dot_bols__service__pb2.RunFlashECRequest.SerializeToString,
             chromiumos_dot_test_dot_api_dot_bols_dot_bols__service__pb2.RunFlashECResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def RunFlashECStream(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_stream(request, target, '/chromiumos.test.api.bols.BolsService/RunFlashECStream',
+            chromiumos_dot_test_dot_api_dot_bols_dot_bols__service__pb2.RunFlashECStreamRequest.SerializeToString,
+            chromiumos_dot_test_dot_api_dot_bols_dot_bols__service__pb2.RunFlashECStreamResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 

@@ -96,9 +96,33 @@ type BolsServiceClient interface {
 	UpdateServoFirmware(ctx context.Context, in *UpdateServoFirmwareRequest, opts ...grpc.CallOption) (*UpdateServoFirmwareResponse, error)
 	// RunFutility run futility tool on labstation.
 	RunFutility(ctx context.Context, in *RunFutilityRequest, opts ...grpc.CallOption) (*RunFutilityResponse, error)
+	// RunFutilityStream runs futility on labstation/container and streams
+	// stdout/stderr chunks kept below the 4 MiB gRPC message size limit, followed
+	// by a single final exit_status message.
+	//
+	// Error and completion contract:
+	// - Pre-launch validation, setup, or transport failures return a gRPC error.
+	// - Unlike unary RunFutility, once the process runs and terminates, both zero
+	//   and non-zero exits (including negative signal codes such as -1) are
+	//   reported in exit_status and the stream closes with gRPC OK.
+	// - exit_status is always sent once as the last message on normal completion,
+	//   so receiving EOF without exit_status indicates a truncated stream.
+	RunFutilityStream(ctx context.Context, in *RunFutilityStreamRequest, opts ...grpc.CallOption) (BolsService_RunFutilityStreamClient, error)
 	// RunFlashEC run EC firmware flashing from the servo.
 	// In most of implementation, it runs flash_ec tool on labstation.
 	RunFlashEC(ctx context.Context, in *RunFlashECRequest, opts ...grpc.CallOption) (*RunFlashECResponse, error)
+	// RunFlashECStream runs flash_ec on labstation/container and streams
+	// stdout/stderr chunks kept below the 4 MiB gRPC message size limit, followed
+	// by a single final exit_status message.
+	//
+	// Error and completion contract:
+	// - Pre-launch validation, setup, or transport failures return a gRPC error.
+	// - Unlike unary RunFlashEC, once the process runs and terminates, both zero
+	//   and non-zero exits (including negative signal codes such as -1) are
+	//   reported in exit_status and the stream closes with gRPC OK.
+	// - exit_status is always sent once as the last message on normal completion,
+	//   so receiving EOF without exit_status indicates a truncated stream.
+	RunFlashECStream(ctx context.Context, in *RunFlashECStreamRequest, opts ...grpc.CallOption) (BolsService_RunFlashECStreamClient, error)
 	// RunGSCTool run gsctool on labstation.
 	// Example:
 	//  gsctool -n 1002D052-9066B226 -f
@@ -502,6 +526,38 @@ func (c *bolsServiceClient) RunFutility(ctx context.Context, in *RunFutilityRequ
 	return out, nil
 }
 
+func (c *bolsServiceClient) RunFutilityStream(ctx context.Context, in *RunFutilityStreamRequest, opts ...grpc.CallOption) (BolsService_RunFutilityStreamClient, error) {
+	stream, err := c.cc.NewStream(ctx, &BolsService_ServiceDesc.Streams[5], "/chromiumos.test.api.bols.BolsService/RunFutilityStream", opts...)
+	if err != nil {
+		return nil, err
+	}
+	x := &bolsServiceRunFutilityStreamClient{stream}
+	if err := x.ClientStream.SendMsg(in); err != nil {
+		return nil, err
+	}
+	if err := x.ClientStream.CloseSend(); err != nil {
+		return nil, err
+	}
+	return x, nil
+}
+
+type BolsService_RunFutilityStreamClient interface {
+	Recv() (*RunFutilityStreamResponse, error)
+	grpc.ClientStream
+}
+
+type bolsServiceRunFutilityStreamClient struct {
+	grpc.ClientStream
+}
+
+func (x *bolsServiceRunFutilityStreamClient) Recv() (*RunFutilityStreamResponse, error) {
+	m := new(RunFutilityStreamResponse)
+	if err := x.ClientStream.RecvMsg(m); err != nil {
+		return nil, err
+	}
+	return m, nil
+}
+
 func (c *bolsServiceClient) RunFlashEC(ctx context.Context, in *RunFlashECRequest, opts ...grpc.CallOption) (*RunFlashECResponse, error) {
 	out := new(RunFlashECResponse)
 	err := c.cc.Invoke(ctx, "/chromiumos.test.api.bols.BolsService/RunFlashEC", in, out, opts...)
@@ -509,6 +565,38 @@ func (c *bolsServiceClient) RunFlashEC(ctx context.Context, in *RunFlashECReques
 		return nil, err
 	}
 	return out, nil
+}
+
+func (c *bolsServiceClient) RunFlashECStream(ctx context.Context, in *RunFlashECStreamRequest, opts ...grpc.CallOption) (BolsService_RunFlashECStreamClient, error) {
+	stream, err := c.cc.NewStream(ctx, &BolsService_ServiceDesc.Streams[6], "/chromiumos.test.api.bols.BolsService/RunFlashECStream", opts...)
+	if err != nil {
+		return nil, err
+	}
+	x := &bolsServiceRunFlashECStreamClient{stream}
+	if err := x.ClientStream.SendMsg(in); err != nil {
+		return nil, err
+	}
+	if err := x.ClientStream.CloseSend(); err != nil {
+		return nil, err
+	}
+	return x, nil
+}
+
+type BolsService_RunFlashECStreamClient interface {
+	Recv() (*RunFlashECStreamResponse, error)
+	grpc.ClientStream
+}
+
+type bolsServiceRunFlashECStreamClient struct {
+	grpc.ClientStream
+}
+
+func (x *bolsServiceRunFlashECStreamClient) Recv() (*RunFlashECStreamResponse, error) {
+	m := new(RunFlashECStreamResponse)
+	if err := x.ClientStream.RecvMsg(m); err != nil {
+		return nil, err
+	}
+	return m, nil
 }
 
 func (c *bolsServiceClient) RunGSCTool(ctx context.Context, in *RunGSCToolRequest, opts ...grpc.CallOption) (*RunGSCToolResponse, error) {
@@ -652,9 +740,33 @@ type BolsServiceServer interface {
 	UpdateServoFirmware(context.Context, *UpdateServoFirmwareRequest) (*UpdateServoFirmwareResponse, error)
 	// RunFutility run futility tool on labstation.
 	RunFutility(context.Context, *RunFutilityRequest) (*RunFutilityResponse, error)
+	// RunFutilityStream runs futility on labstation/container and streams
+	// stdout/stderr chunks kept below the 4 MiB gRPC message size limit, followed
+	// by a single final exit_status message.
+	//
+	// Error and completion contract:
+	// - Pre-launch validation, setup, or transport failures return a gRPC error.
+	// - Unlike unary RunFutility, once the process runs and terminates, both zero
+	//   and non-zero exits (including negative signal codes such as -1) are
+	//   reported in exit_status and the stream closes with gRPC OK.
+	// - exit_status is always sent once as the last message on normal completion,
+	//   so receiving EOF without exit_status indicates a truncated stream.
+	RunFutilityStream(*RunFutilityStreamRequest, BolsService_RunFutilityStreamServer) error
 	// RunFlashEC run EC firmware flashing from the servo.
 	// In most of implementation, it runs flash_ec tool on labstation.
 	RunFlashEC(context.Context, *RunFlashECRequest) (*RunFlashECResponse, error)
+	// RunFlashECStream runs flash_ec on labstation/container and streams
+	// stdout/stderr chunks kept below the 4 MiB gRPC message size limit, followed
+	// by a single final exit_status message.
+	//
+	// Error and completion contract:
+	// - Pre-launch validation, setup, or transport failures return a gRPC error.
+	// - Unlike unary RunFlashEC, once the process runs and terminates, both zero
+	//   and non-zero exits (including negative signal codes such as -1) are
+	//   reported in exit_status and the stream closes with gRPC OK.
+	// - exit_status is always sent once as the last message on normal completion,
+	//   so receiving EOF without exit_status indicates a truncated stream.
+	RunFlashECStream(*RunFlashECStreamRequest, BolsService_RunFlashECStreamServer) error
 	// RunGSCTool run gsctool on labstation.
 	// Example:
 	//  gsctool -n 1002D052-9066B226 -f
@@ -767,8 +879,14 @@ func (UnimplementedBolsServiceServer) UpdateServoFirmware(context.Context, *Upda
 func (UnimplementedBolsServiceServer) RunFutility(context.Context, *RunFutilityRequest) (*RunFutilityResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method RunFutility not implemented")
 }
+func (UnimplementedBolsServiceServer) RunFutilityStream(*RunFutilityStreamRequest, BolsService_RunFutilityStreamServer) error {
+	return status.Errorf(codes.Unimplemented, "method RunFutilityStream not implemented")
+}
 func (UnimplementedBolsServiceServer) RunFlashEC(context.Context, *RunFlashECRequest) (*RunFlashECResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method RunFlashEC not implemented")
+}
+func (UnimplementedBolsServiceServer) RunFlashECStream(*RunFlashECStreamRequest, BolsService_RunFlashECStreamServer) error {
+	return status.Errorf(codes.Unimplemented, "method RunFlashECStream not implemented")
 }
 func (UnimplementedBolsServiceServer) RunGSCTool(context.Context, *RunGSCToolRequest) (*RunGSCToolResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method RunGSCTool not implemented")
@@ -1332,6 +1450,27 @@ func _BolsService_RunFutility_Handler(srv interface{}, ctx context.Context, dec 
 	return interceptor(ctx, in, info, handler)
 }
 
+func _BolsService_RunFutilityStream_Handler(srv interface{}, stream grpc.ServerStream) error {
+	m := new(RunFutilityStreamRequest)
+	if err := stream.RecvMsg(m); err != nil {
+		return err
+	}
+	return srv.(BolsServiceServer).RunFutilityStream(m, &bolsServiceRunFutilityStreamServer{stream})
+}
+
+type BolsService_RunFutilityStreamServer interface {
+	Send(*RunFutilityStreamResponse) error
+	grpc.ServerStream
+}
+
+type bolsServiceRunFutilityStreamServer struct {
+	grpc.ServerStream
+}
+
+func (x *bolsServiceRunFutilityStreamServer) Send(m *RunFutilityStreamResponse) error {
+	return x.ServerStream.SendMsg(m)
+}
+
 func _BolsService_RunFlashEC_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(RunFlashECRequest)
 	if err := dec(in); err != nil {
@@ -1348,6 +1487,27 @@ func _BolsService_RunFlashEC_Handler(srv interface{}, ctx context.Context, dec f
 		return srv.(BolsServiceServer).RunFlashEC(ctx, req.(*RunFlashECRequest))
 	}
 	return interceptor(ctx, in, info, handler)
+}
+
+func _BolsService_RunFlashECStream_Handler(srv interface{}, stream grpc.ServerStream) error {
+	m := new(RunFlashECStreamRequest)
+	if err := stream.RecvMsg(m); err != nil {
+		return err
+	}
+	return srv.(BolsServiceServer).RunFlashECStream(m, &bolsServiceRunFlashECStreamServer{stream})
+}
+
+type BolsService_RunFlashECStreamServer interface {
+	Send(*RunFlashECStreamResponse) error
+	grpc.ServerStream
+}
+
+type bolsServiceRunFlashECStreamServer struct {
+	grpc.ServerStream
+}
+
+func (x *bolsServiceRunFlashECStreamServer) Send(m *RunFlashECStreamResponse) error {
+	return x.ServerStream.SendMsg(m)
 }
 
 func _BolsService_RunGSCTool_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
@@ -1632,6 +1792,16 @@ var BolsService_ServiceDesc = grpc.ServiceDesc{
 		{
 			StreamName:    "ReadFileByBlock",
 			Handler:       _BolsService_ReadFileByBlock_Handler,
+			ServerStreams: true,
+		},
+		{
+			StreamName:    "RunFutilityStream",
+			Handler:       _BolsService_RunFutilityStream_Handler,
+			ServerStreams: true,
+		},
+		{
+			StreamName:    "RunFlashECStream",
+			Handler:       _BolsService_RunFlashECStream_Handler,
 			ServerStreams: true,
 		},
 	},

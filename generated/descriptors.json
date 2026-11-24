@@ -26111,6 +26111,25 @@
         {
           "field": [
             {
+              "jsonName": "exitCode",
+              "label": "LABEL_OPTIONAL",
+              "name": "exit_code",
+              "number": 1,
+              "type": "TYPE_INT32"
+            },
+            {
+              "jsonName": "errorMessage",
+              "label": "LABEL_OPTIONAL",
+              "name": "error_message",
+              "number": 2,
+              "type": "TYPE_STRING"
+            }
+          ],
+          "name": "CommandExitStatus"
+        },
+        {
+          "field": [
+            {
               "jsonName": "stationId",
               "label": "LABEL_OPTIONAL",
               "name": "station_id",
@@ -26159,6 +26178,54 @@
               "type": "TYPE_STRING"
             }
           ],
+          "name": "RunFutilityStreamRequest"
+        },
+        {
+          "field": [
+            {
+              "jsonName": "output",
+              "label": "LABEL_OPTIONAL",
+              "name": "output",
+              "number": 1,
+              "oneofIndex": 0,
+              "type": "TYPE_MESSAGE",
+              "typeName": ".chromiumos.test.api.bols.OutputStream"
+            },
+            {
+              "jsonName": "exitStatus",
+              "label": "LABEL_OPTIONAL",
+              "name": "exit_status",
+              "number": 2,
+              "oneofIndex": 0,
+              "type": "TYPE_MESSAGE",
+              "typeName": ".chromiumos.test.api.bols.CommandExitStatus"
+            }
+          ],
+          "name": "RunFutilityStreamResponse",
+          "oneofDecl": [
+            {
+              "name": "payload"
+            }
+          ]
+        },
+        {
+          "field": [
+            {
+              "jsonName": "stationId",
+              "label": "LABEL_OPTIONAL",
+              "name": "station_id",
+              "number": 1,
+              "type": "TYPE_MESSAGE",
+              "typeName": ".chromiumos.test.api.bols.StationIdentifier"
+            },
+            {
+              "jsonName": "params",
+              "label": "LABEL_REPEATED",
+              "name": "params",
+              "number": 2,
+              "type": "TYPE_STRING"
+            }
+          ],
           "name": "RunFlashECRequest"
         },
         {
@@ -26173,6 +26240,54 @@
             }
           ],
           "name": "RunFlashECResponse"
+        },
+        {
+          "field": [
+            {
+              "jsonName": "stationId",
+              "label": "LABEL_OPTIONAL",
+              "name": "station_id",
+              "number": 1,
+              "type": "TYPE_MESSAGE",
+              "typeName": ".chromiumos.test.api.bols.StationIdentifier"
+            },
+            {
+              "jsonName": "params",
+              "label": "LABEL_REPEATED",
+              "name": "params",
+              "number": 2,
+              "type": "TYPE_STRING"
+            }
+          ],
+          "name": "RunFlashECStreamRequest"
+        },
+        {
+          "field": [
+            {
+              "jsonName": "output",
+              "label": "LABEL_OPTIONAL",
+              "name": "output",
+              "number": 1,
+              "oneofIndex": 0,
+              "type": "TYPE_MESSAGE",
+              "typeName": ".chromiumos.test.api.bols.OutputStream"
+            },
+            {
+              "jsonName": "exitStatus",
+              "label": "LABEL_OPTIONAL",
+              "name": "exit_status",
+              "number": 2,
+              "oneofIndex": 0,
+              "type": "TYPE_MESSAGE",
+              "typeName": ".chromiumos.test.api.bols.CommandExitStatus"
+            }
+          ],
+          "name": "RunFlashECStreamResponse",
+          "oneofDecl": [
+            {
+              "name": "payload"
+            }
+          ]
         },
         {
           "field": [
@@ -26579,10 +26694,24 @@
               "outputType": ".chromiumos.test.api.bols.RunFutilityResponse"
             },
             {
+              "inputType": ".chromiumos.test.api.bols.RunFutilityStreamRequest",
+              "name": "RunFutilityStream",
+              "options": {},
+              "outputType": ".chromiumos.test.api.bols.RunFutilityStreamResponse",
+              "serverStreaming": true
+            },
+            {
               "inputType": ".chromiumos.test.api.bols.RunFlashECRequest",
               "name": "RunFlashEC",
               "options": {},
               "outputType": ".chromiumos.test.api.bols.RunFlashECResponse"
+            },
+            {
+              "inputType": ".chromiumos.test.api.bols.RunFlashECStreamRequest",
+              "name": "RunFlashECStream",
+              "options": {},
+              "outputType": ".chromiumos.test.api.bols.RunFlashECStreamResponse",
+              "serverStreaming": true
             },
             {
               "inputType": ".chromiumos.test.api.bols.RunGSCToolRequest",
