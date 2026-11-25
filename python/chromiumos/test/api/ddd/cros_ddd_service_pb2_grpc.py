@@ -13,7 +13,7 @@ class CrosDddServiceStub(object):
     and subcategory-product upper bound. Do not retry unchanged.
     UNAVAILABLE: the inventory (BigQuery) or a Swarming count couldn't be
     read. Nothing partial is returned. Retry with backoff.
-    UNIMPLEMENTED: static_devices set before Milestone 3.
+    UNIMPLEMENTED: SelectEqcTargets is not implemented yet.
     """
 
     def __init__(self, channel):
@@ -42,7 +42,7 @@ class CrosDddServiceServicer(object):
     and subcategory-product upper bound. Do not retry unchanged.
     UNAVAILABLE: the inventory (BigQuery) or a Swarming count couldn't be
     read. Nothing partial is returned. Retry with backoff.
-    UNIMPLEMENTED: static_devices set before Milestone 3.
+    UNIMPLEMENTED: SelectEqcTargets is not implemented yet.
     """
 
     def SolveExpression(self, request, context):
@@ -92,7 +92,7 @@ class CrosDddService(object):
     and subcategory-product upper bound. Do not retry unchanged.
     UNAVAILABLE: the inventory (BigQuery) or a Swarming count couldn't be
     read. Nothing partial is returned. Retry with backoff.
-    UNIMPLEMENTED: static_devices set before Milestone 3.
+    UNIMPLEMENTED: SelectEqcTargets is not implemented yet.
     """
 
     @staticmethod

@@ -79,8 +79,9 @@ type SolveExpressionRequest struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	// DUT pool (label-pool) to evaluate against ("DUT_POOL_QUOTA" if empty,
-	// unless static_devices is set without include_pool_inventory).
+	// DUT pool (label-pool) to evaluate against; "DUT_POOL_QUOTA" if empty.
+	// When static_devices is set and include_pool_inventory is false, no pool
+	// is used and this must be empty (INVALID_ARGUMENT otherwise).
 	// Letters, digits, "_", "-" and "." only.
 	Pool string `protobuf:"bytes,1,opt,name=pool,proto3" json:"pool,omitempty"`
 	// One or more (variant_category, dependencies) groups to solve.
@@ -101,11 +102,11 @@ type SolveExpressionRequest struct {
 	CountsOnly bool `protobuf:"varint,5,opt,name=counts_only,json=countsOnly,proto3" json:"counts_only,omitempty"`
 	// Optional: caller correlation ID, written to the service logs.
 	RequestId string `protobuf:"bytes,6,opt,name=request_id,json=requestId,proto3" json:"request_id,omitempty"`
-	// Milestone 3 (returns UNIMPLEMENTED in M1-M2): solve against these
-	// caller-supplied devices instead of, or unioned with, the lab pool.
+	// Solve against these caller-supplied devices instead of, or unioned with,
+	// the lab pool.
 	StaticDevices []*StaticDevice `protobuf:"bytes,7,rep,name=static_devices,json=staticDevices,proto3" json:"static_devices,omitempty"`
-	// Milestone 3: when static_devices is non-empty, true solves across the
-	// union of pool and static_devices; false uses only static_devices.
+	// When static_devices is non-empty, true solves across the union of pool and
+	// static_devices; false uses only static_devices.
 	IncludePoolInventory bool `protobuf:"varint,8,opt,name=include_pool_inventory,json=includePoolInventory,proto3" json:"include_pool_inventory,omitempty"`
 }
 
@@ -203,9 +204,11 @@ type SolveExpressionResponse struct {
 	unknownFields protoimpl.UnknownFields
 
 	Groups []*SolvedExpressionGroup `protobuf:"bytes,1,rep,name=groups,proto3" json:"groups,omitempty"`
-	// Milestone 3: static_devices entries skipped because the model or
-	// HWID/descriptor was not found in DLM, HWID_DB or hardware descriptor
-	// datasets.
+	// static_devices entries that couldn't be resolved: model not in DLM,
+	// HWID/descriptor unknown or undecodable, or no build_metadata images for
+	// the device's board. Each entry is "<model>|<HWID>" (model lowercased,
+	// HWID uppercased), or the uppercased HWID alone for a classic HWID sent
+	// without a model. Sorted, without duplicates.
 	UnrecognizedDevices []string          `protobuf:"bytes,2,rep,name=unrecognized_devices,json=unrecognizedDevices,proto3" json:"unrecognized_devices,omitempty"`
 	Metadata            *ResponseMetadata `protobuf:"bytes,3,opt,name=metadata,proto3" json:"metadata,omitempty"`
 }
@@ -525,8 +528,9 @@ func (x *ExpressionGroup) GetRequestsPerEqc() int32 {
 	return 0
 }
 
-// Base ChromeOS images ("<board>-release") and AL targets only; non-base
-// ChromeOS image_variant filtering (such as "-kernelnext") is not yet exposed.
+// Base ChromeOS images ("<board>-release") and configless hardware-descriptor
+// targets only; non-base ChromeOS image_variant filtering (such as
+// "-kernelnext") is not yet exposed.
 type CandidateTarget struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -596,18 +600,19 @@ func (x *CandidateTarget) GetBuildTarget() string {
 	return ""
 }
 
-// Milestone 3: a caller-supplied device for local / Satlab / manual-testing
-// solves without querying Swarming bot history.
+// A caller-supplied device for local / Satlab / manual-testing solves without
+// querying Swarming bot history.
 type StaticDevice struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
 	// Model / google_code_name (e.g. "model_a", "model_b"). Required when hwid is
-	// a raw AL hardware descriptor; optional for classic "<PROJECT> <BOM>" HWIDs.
+	// a raw hardware descriptor; optional for classic "<PROJECT> <BOM>" HWIDs.
 	Model string `protobuf:"bytes,1,opt,name=model,proto3" json:"model,omitempty"`
-	// Classic ChromeOS HWID (e.g. "MODEL_A-TEST ...") or raw AL hardware
-	// descriptor (e.g. "0100...").
+	// Classic ChromeOS HWID (e.g. "MODEL_A-TEST ...") or raw hardware
+	// descriptor (e.g. "0100..."). A hwid without a space that starts with two
+	// hex digits is treated as a raw hardware descriptor.
 	Hwid string `protobuf:"bytes,2,opt,name=hwid,proto3" json:"hwid,omitempty"`
 	// Optional Swarming-style labels ("<label>:<value>", e.g.
 	// "label-wifi_chip:WIFI_CHIP_A", "label-gpu_id:...", "label-phase:EVT").
@@ -1124,11 +1129,14 @@ type EqcClass struct {
 	// also covers the dependencies, so EqCs of groups that differ only in
 	// dependencies share this value but not eqc_hash.
 	EqcCategoryExpression string `protobuf:"bytes,3,opt,name=eqc_category_expression,json=eqcCategoryExpression,proto3" json:"eqc_category_expression,omitempty"`
-	// Dimensions defining the EqC, e.g.
-	// {"soc": "SOC_A", "wifi_chip": "WIFI_CHIP_A"}.
+	// Dimensions defining the EqC, keyed by 3D property path, e.g.
+	// {"dlm:soc": "SOC_A", "swarming:label-wifi_chip": "WIFI_CHIP_A"}.
 	EqcDimensions map[string]string `protobuf:"bytes,4,rep,name=eqc_dimensions,json=eqcDimensions,proto3" json:"eqc_dimensions,omitempty" protobuf_key:"bytes,1,opt,name=key,proto3" protobuf_val:"bytes,2,opt,name=value,proto3"`
-	// De-duplicated (board, model) targets in the inventory for this EqC,
-	// limited to candidate_targets when the request sets them.
+	// Targets in the inventory for this EqC, grouped by (board, model, canonical
+	// swarming_labels set) and limited to candidate_targets when the request
+	// sets them. The same (board, model) can appear in multiple entries within
+	// one EqcClass when HWIDs require distinct Swarming label sets; consumers
+	// must not key targets by (board, model) alone.
 	Targets []*EqcTarget `protobuf:"bytes,5,rep,name=targets,proto3" json:"targets,omitempty"`
 }
 
@@ -1199,7 +1207,8 @@ func (x *EqcClass) GetTargets() []*EqcTarget {
 	return nil
 }
 
-// Base ChromeOS image ("<board>-release") or AL target in an EqC.
+// Base ChromeOS image ("<board>-release") or configless hardware-descriptor
+// target in an EqC.
 type EqcTarget struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -1296,7 +1305,13 @@ type ResponseMetadata struct {
 	// Cloud Run revision that served the request (K_REVISION), e.g.
 	// "cros-ddd-filter-00001-abc".
 	ServiceRevision string `protobuf:"bytes,1,opt,name=service_revision,json=serviceRevision,proto3" json:"service_revision,omitempty"`
-	// When this instance loaded the pool's inventory from BigQuery.
+	// When this instance loaded the inventory from BigQuery:
+	//   - pool and union (pool + static_devices) requests: the pool snapshot's
+	//     load time. Snapshots are cached for 8h and may be served for up to 4h
+	//     longer (up to 12h old) while a background refresh runs.
+	//   - static-only requests with raw hardware descriptors: the hardware
+	//     descriptor dataset load time.
+	//   - static-only requests with only classic HWIDs: unset.
 	InventoryLoadTime *timestamppb.Timestamp `protobuf:"bytes,2,opt,name=inventory_load_time,json=inventoryLoadTime,proto3" json:"inventory_load_time,omitempty"`
 	// SelectEqcTargets only: time of the oldest Swarming count used.
 	AvailabilityTime *timestamppb.Timestamp `protobuf:"bytes,3,opt,name=availability_time,json=availabilityTime,proto3" json:"availability_time,omitempty"`

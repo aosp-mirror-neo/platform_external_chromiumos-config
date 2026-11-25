@@ -18,7 +18,7 @@ option java_outer_classname = "CrosDddServiceOuterClass";
 //     and subcategory-product upper bound. Do not retry unchanged.
 //   UNAVAILABLE: the inventory (BigQuery) or a Swarming count couldn't be
 //     read. Nothing partial is returned. Retry with backoff.
-//   UNIMPLEMENTED: static_devices set before Milestone 3.
+//   UNIMPLEMENTED: SelectEqcTargets is not implemented yet.
 service CrosDddService {
   // EqC partitioning only: solves one or more 3D variant-category groups and
   // returns every resulting EqC, all matching base-image targets, and counts.
@@ -34,8 +34,9 @@ service CrosDddService {
 }
 
 message SolveExpressionRequest {
-  // DUT pool (label-pool) to evaluate against ("DUT_POOL_QUOTA" if empty,
-  // unless static_devices is set without include_pool_inventory).
+  // DUT pool (label-pool) to evaluate against; "DUT_POOL_QUOTA" if empty.
+  // When static_devices is set and include_pool_inventory is false, no pool
+  // is used and this must be empty (INVALID_ARGUMENT otherwise).
   // Letters, digits, "_", "-" and "." only.
   string pool = 1;
   // One or more (variant_category, dependencies) groups to solve.
@@ -56,19 +57,21 @@ message SolveExpressionRequest {
   bool counts_only = 5;
   // Optional: caller correlation ID, written to the service logs.
   string request_id = 6;
-  // Milestone 3 (returns UNIMPLEMENTED in M1-M2): solve against these
-  // caller-supplied devices instead of, or unioned with, the lab pool.
+  // Solve against these caller-supplied devices instead of, or unioned with,
+  // the lab pool.
   repeated StaticDevice static_devices = 7;
-  // Milestone 3: when static_devices is non-empty, true solves across the
-  // union of pool and static_devices; false uses only static_devices.
+  // When static_devices is non-empty, true solves across the union of pool and
+  // static_devices; false uses only static_devices.
   bool include_pool_inventory = 8;
 }
 
 message SolveExpressionResponse {
   repeated SolvedExpressionGroup groups = 1;
-  // Milestone 3: static_devices entries skipped because the model or
-  // HWID/descriptor was not found in DLM, HWID_DB or hardware descriptor
-  // datasets.
+  // static_devices entries that couldn't be resolved: model not in DLM,
+  // HWID/descriptor unknown or undecodable, or no build_metadata images for
+  // the device's board. Each entry is "<model>|<HWID>" (model lowercased,
+  // HWID uppercased), or the uppercased HWID alone for a classic HWID sent
+  // without a model. Sorted, without duplicates.
   repeated string unrecognized_devices = 2;
   ResponseMetadata metadata = 3;
 }
@@ -129,8 +132,9 @@ message ExpressionGroup {
   int32 requests_per_eqc = 4;
 }
 
-// Base ChromeOS images ("<board>-release") and AL targets only; non-base
-// ChromeOS image_variant filtering (such as "-kernelnext") is not yet exposed.
+// Base ChromeOS images ("<board>-release") and configless hardware-descriptor
+// targets only; non-base ChromeOS image_variant filtering (such as
+// "-kernelnext") is not yet exposed.
 message CandidateTarget {
   string board = 1;
   // Empty = every model of the board, as in the 3D filter today (for
@@ -143,14 +147,15 @@ message CandidateTarget {
   string build_target = 3;
 }
 
-// Milestone 3: a caller-supplied device for local / Satlab / manual-testing
-// solves without querying Swarming bot history.
+// A caller-supplied device for local / Satlab / manual-testing solves without
+// querying Swarming bot history.
 message StaticDevice {
   // Model / google_code_name (e.g. "model_a", "model_b"). Required when hwid is
-  // a raw AL hardware descriptor; optional for classic "<PROJECT> <BOM>" HWIDs.
+  // a raw hardware descriptor; optional for classic "<PROJECT> <BOM>" HWIDs.
   string model = 1;
-  // Classic ChromeOS HWID (e.g. "MODEL_A-TEST ...") or raw AL hardware
-  // descriptor (e.g. "0100...").
+  // Classic ChromeOS HWID (e.g. "MODEL_A-TEST ...") or raw hardware
+  // descriptor (e.g. "0100..."). A hwid without a space that starts with two
+  // hex digits is treated as a raw hardware descriptor.
   string hwid = 2;
   // Optional Swarming-style labels ("<label>:<value>", e.g.
   // "label-wifi_chip:WIFI_CHIP_A", "label-gpu_id:...", "label-phase:EVT").
@@ -254,15 +259,19 @@ message EqcClass {
   // also covers the dependencies, so EqCs of groups that differ only in
   // dependencies share this value but not eqc_hash.
   string eqc_category_expression = 3;
-  // Dimensions defining the EqC, e.g.
-  // {"soc": "SOC_A", "wifi_chip": "WIFI_CHIP_A"}.
+  // Dimensions defining the EqC, keyed by 3D property path, e.g.
+  // {"dlm:soc": "SOC_A", "swarming:label-wifi_chip": "WIFI_CHIP_A"}.
   map<string, string> eqc_dimensions = 4;
-  // De-duplicated (board, model) targets in the inventory for this EqC,
-  // limited to candidate_targets when the request sets them.
+  // Targets in the inventory for this EqC, grouped by (board, model, canonical
+  // swarming_labels set) and limited to candidate_targets when the request
+  // sets them. The same (board, model) can appear in multiple entries within
+  // one EqcClass when HWIDs require distinct Swarming label sets; consumers
+  // must not key targets by (board, model) alone.
   repeated EqcTarget targets = 5;
 }
 
-// Base ChromeOS image ("<board>-release") or AL target in an EqC.
+// Base ChromeOS image ("<board>-release") or configless hardware-descriptor
+// target in an EqC.
 message EqcTarget {
   string board = 1;
   string model = 2;
@@ -284,7 +293,13 @@ message ResponseMetadata {
   // Cloud Run revision that served the request (K_REVISION), e.g.
   // "cros-ddd-filter-00001-abc".
   string service_revision = 1;
-  // When this instance loaded the pool's inventory from BigQuery.
+  // When this instance loaded the inventory from BigQuery:
+  //   - pool and union (pool + static_devices) requests: the pool snapshot's
+  //     load time. Snapshots are cached for 8h and may be served for up to 4h
+  //     longer (up to 12h old) while a background refresh runs.
+  //   - static-only requests with raw hardware descriptors: the hardware
+  //     descriptor dataset load time.
+  //   - static-only requests with only classic HWIDs: unset.
   google.protobuf.Timestamp inventory_load_time = 2;
   // SelectEqcTargets only: time of the oldest Swarming count used.
   google.protobuf.Timestamp availability_time = 3;
